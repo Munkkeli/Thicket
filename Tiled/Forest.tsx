@@ -2,29 +2,31 @@
 <tileset name="Forest" tilewidth="16" tileheight="16" tilecount="1440" columns="40">
  <image source="gfx/Overworld.png" width="640" height="576"/>
  <tile id="206">
-  <objectgroup draworder="index">
-   <object id="4" x="3.4375" y="4.5" width="10.875" height="7.8125"/>
-  </objectgroup>
+  <objectgroup draworder="index"/>
  </tile>
  <tile id="207">
   <objectgroup draworder="index">
-   <object id="1" x="0.625" y="0.6875" width="14.6875" height="12.625"/>
+   <object id="3" x="2" y="12">
+    <polygon points="0,0 12,0 12,-7 0,-7"/>
+   </object>
   </objectgroup>
  </tile>
  <tile id="208">
   <objectgroup draworder="index">
-   <object id="1" x="0.625" y="2.625" width="14.6875" height="12.6875"/>
+   <object id="2" x="2" y="13">
+    <polygon points="0,0 12,0 12,-7 0,-7"/>
+   </object>
   </objectgroup>
  </tile>
  <tile id="209">
   <objectgroup draworder="index">
-   <object id="1" x="0.625" y="2.625" width="14.625" height="11.6875"/>
+   <object id="2" x="2" y="12">
+    <polygon points="0,0 11,0 11,-5 0,-5"/>
+   </object>
   </objectgroup>
  </tile>
  <tile id="210">
-  <objectgroup draworder="index">
-   <object id="1" x="1.6875" y="5.75" width="12.6875" height="7.5"/>
-  </objectgroup>
+  <objectgroup draworder="index"/>
  </tile>
  <tile id="645">
   <objectgroup draworder="index"/>

@@ -6,14 +6,12 @@ public class Player : MonoBehaviour {
   public float speed = 1;
   public Camera view;
 
-  private int aspect = 8;
-
   void Awake() {
     // Snap();
   }
 
   void Start() {
-    view.orthographicSize = ((Screen.height / 2) / 8) / 3;
+    view.orthographicSize = Manager.size;
   }
 
   void FixedUpdate() {
@@ -33,7 +31,7 @@ public class Player : MonoBehaviour {
 
   private void Snap() {
     Vector3 snapped = transform.position;
-    snapped = new Vector3(Mathf.Round(snapped.x * aspect) / aspect, Mathf.Round(snapped.y * aspect) / aspect, snapped.z);
+    snapped = new Vector3(Mathf.Round(snapped.x * Manager.ppu) / Manager.ppu, Mathf.Round(snapped.y * Manager.ppu) / Manager.ppu, snapped.z);
     transform.position = snapped;
   }
 }
