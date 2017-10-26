@@ -15,8 +15,8 @@ TagManager:
   - 
   - Clouds
   - View
-  - 
-  - 
+  - Item
+  - Info
   - 
   - 
   - 
@@ -46,4 +46,7 @@ TagManager:
     locked: 0
   - name: Clouds
     uniqueID: 553627653
+    locked: 0
+  - name: UI
+    uniqueID: 749091689
     locked: 0

@@ -14,4 +14,10 @@ public static class Manager {
   public static float Snap(float value) {
     return Mathf.Round(value * (float)ppu) / (float)ppu;
   }
+
+  public static Vector3 Snap(Vector3 value, bool centered = false) {
+    value = new Vector3(Mathf.Round(value.x * Manager.ppu) / Manager.ppu, Mathf.Round(value.y * Manager.ppu) / Manager.ppu, value.z);
+    if (centered) value += new Vector3((1f / Manager.ppu) / 2f, (1f / Manager.ppu) / 2f, 0);
+    return value;
+  }
 }
