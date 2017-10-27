@@ -5,15 +5,20 @@ using UnityEngine;
 public class Player : MonoBehaviour {
   public float speed = 1;
   public Camera view;
+  public Camera viewport;
 
   public LayerMask pickupLayer;
   public LayerMask infoLayer;
+
+  public Transform test;
 
   public GameObject notifyIcon;
   public GameObject infoIcon;
 
   private Rigidbody2D body;
   private Dictionary<Collider2D, GameObject> inRange = new Dictionary<Collider2D, GameObject>();
+
+  private Vector2 target;
 
   void Awake() {
     // Snap();
@@ -23,6 +28,7 @@ public class Player : MonoBehaviour {
     view.orthographicSize = Manager.size;
     body = GetComponent<Rigidbody2D>();
     // body.isKinematic = true;
+    target = transform.position;
   }
 
   void Update() {
@@ -45,6 +51,18 @@ public class Player : MonoBehaviour {
       inRange.Remove(coll.Key);
       Destroy(coll.Value);
     }
+
+    if (Input.GetMouseButtonUp(0)) {
+        Vector3 click = viewport.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+        Vector2 scale = new Vector2(((float)view.pixelWidth / (float)viewport.pixelWidth), ((float)view.pixelHeight / (float)viewport.pixelHeight));
+        Vector2 offset = (Vector2)(click - viewport.transform.position);
+        target = new Vector3(click.x + (offset.x * scale.x), click.y + (offset.y * scale.y), 0);
+        // Debug.Log(click);
+        // Debug.Log(scale);
+        // Debug.Log(offset);
+        // Debug.Log(click.x + (offset.x * ((float)view.pixelWidth / (float)viewport.pixelWidth)));
+        // Debug.Log((float)view.pixelHeight / (float)viewport.pixelHeight);
+    }
   }
 
   void FixedUpdate() {
@@ -57,7 +75,10 @@ public class Player : MonoBehaviour {
 
     velocity.Normalize();
 
-    body.MovePosition(body.position + (Vector2)(velocity * speed * Time.fixedDeltaTime));
+    target += (Vector2)(velocity * speed * Time.fixedDeltaTime);
+
+    Vector3 position = Vector3.Lerp(body.position, target, Time.fixedDeltaTime);
+    body.MovePosition(position);
 
     // Snap();
   }
