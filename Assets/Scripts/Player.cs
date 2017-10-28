@@ -57,6 +57,7 @@ public class Player : MonoBehaviour {
         Vector2 scale = new Vector2(((float)view.pixelWidth / (float)viewport.pixelWidth), ((float)view.pixelHeight / (float)viewport.pixelHeight));
         Vector2 offset = (Vector2)(click - viewport.transform.position);
         target = new Vector3(click.x + (offset.x * scale.x), click.y + (offset.y * scale.y), 0);
+        // test.transform.position = new Vector3(click.x + (offset.x * scale.x), click.y + (offset.y * scale.y), 0);
         // Debug.Log(click);
         // Debug.Log(scale);
         // Debug.Log(offset);
