@@ -1,5 +1,3 @@
-// Upgrade NOTE: upgraded instancing buffer 'MyProperties' to new syntax.
-
 Shader "Tiled2Unity/Diffuse Depth (Instanced)"
 {
 	Properties
@@ -44,10 +42,9 @@ Shader "Tiled2Unity/Diffuse Depth (Instanced)"
 			UNITY_VERTEX_INPUT_INSTANCE_ID
 		};
 		
-		UNITY_INSTANCING_BUFFER_START(MyProperties)
+		UNITY_INSTANCING_CBUFFER_START(MyProperties)
                 	UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
-#define _Color_arr MyProperties
-		UNITY_INSTANCING_BUFFER_END(MyProperties)
+		UNITY_INSTANCING_CBUFFER_END
 		
 		void vert (inout appdata_full v, out Input o)
 		{
@@ -56,7 +53,7 @@ Shader "Tiled2Unity/Diffuse Depth (Instanced)"
 			#endif
 			
 			UNITY_INITIALIZE_OUTPUT(Input, o);
-			o.color = v.color * UNITY_ACCESS_INSTANCED_PROP(_Color_arr, _Color);
+			o.color = v.color * UNITY_ACCESS_INSTANCED_PROP(_Color);
 		}
 
 		fixed4 SampleSpriteTexture (float2 uv)

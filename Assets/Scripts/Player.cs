@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Player : MonoBehaviour {
+  public Router router;
+
   public float speed = 1;
+  public float maxSpeed = 1;
+  public float smoothing = 1;
   public Camera view;
   public Camera viewport;
+
+  public Collider2D main;
 
   public LayerMask pickupLayer;
   public LayerMask infoLayer;
@@ -15,20 +22,21 @@ public class Player : MonoBehaviour {
   public GameObject notifyIcon;
   public GameObject infoIcon;
 
+  private Vector2[] path;
+  private int progress;
+
   private Rigidbody2D body;
   private Dictionary<Collider2D, GameObject> inRange = new Dictionary<Collider2D, GameObject>();
 
-  private Vector2 target;
+  private Vector2 position;
+  private Vector2 velocityRef;
 
-  void Awake() {
-    // Snap();
-  }
+  private Vector2 correction { get { return transform.position - main.bounds.center; } }
 
   void Start() {
     view.orthographicSize = Manager.size;
     body = GetComponent<Rigidbody2D>();
-    // body.isKinematic = true;
-    target = transform.position;
+    position = transform.position;
   }
 
   void Update() {
@@ -56,14 +64,11 @@ public class Player : MonoBehaviour {
         Vector3 click = viewport.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
         Vector2 scale = new Vector2(((float)view.pixelWidth / (float)viewport.pixelWidth), ((float)view.pixelHeight / (float)viewport.pixelHeight));
         Vector2 offset = (Vector2)(click - viewport.transform.position);
-        target = new Vector3(click.x + (offset.x * scale.x), click.y + (offset.y * scale.y), 0);
-        // test.transform.position = new Vector3(click.x + (offset.x * scale.x), click.y + (offset.y * scale.y), 0);
-        // Debug.Log(click);
-        // Debug.Log(scale);
-        // Debug.Log(offset);
-        // Debug.Log(click.x + (offset.x * ((float)view.pixelWidth / (float)viewport.pixelWidth)));
-        // Debug.Log((float)view.pixelHeight / (float)viewport.pixelHeight);
+
+        Navigate(new Vector3(click.x + (offset.x * scale.x), click.y + (offset.y * scale.y), 0));
     }
+
+    transform.position = position; //Manager.Snap(position);
   }
 
   void FixedUpdate() {
@@ -76,19 +81,52 @@ public class Player : MonoBehaviour {
 
     velocity.Normalize();
 
-    target += (Vector2)(velocity * speed * Time.fixedDeltaTime);
+    // target += (Vector2)(velocity * speed * Time.fixedDeltaTime);
 
-    Vector3 position = Vector3.Lerp(body.position, target, Time.fixedDeltaTime);
-    body.MovePosition(position);
-
-    // Snap();
+    // Vector3 position = Vector2.SmoothDamp(body.position, target, ref velocityRef, smoothing, maxSpeed, Time.fixedDeltaTime);
+    // body.MovePosition(position);
   }
 
-  /*
-  private void Snap() {
-    Vector3 snapped = transform.position;
-    snapped = new Vector3(Mathf.Round(snapped.x * Manager.ppu) / Manager.ppu, Mathf.Round(snapped.y * Manager.ppu) / Manager.ppu, snapped.z);
-    transform.position = snapped;
+  void OnDrawGizmos() {
+    if (path == null) return;
+
+    for (int i = progress; i < path.Length; i++) {
+      Gizmos.color = Color.blue;
+      Gizmos.DrawWireSphere(path[i], 0.25f);
+
+      if (i < path.Length - 1) {
+        Gizmos.DrawLine(path[i], path[i + 1]);
+      }
+    }
   }
-  */
+
+  private void Navigate(Vector2 point) {
+    Vector2[] path = router.Find(transform.position, point);
+    if (path == null) return;
+    progress = 0;
+    this.path = path;
+
+    Debug.Log("Navigate");
+
+    StopCoroutine("Follow");
+    StartCoroutine("Follow");
+  }
+
+  private IEnumerator Follow() {
+    Vector2 current = path[0];
+
+    while (true) {
+      if (Vector2.Distance(position, current + correction) < 0.5f) {
+        progress++;
+
+        if (progress >= path.Length) yield break;
+
+        current = path[progress];
+      }
+
+      position = Vector2.MoveTowards(position, current + correction, speed);
+
+      yield return null;
+    }
+  }
 }
