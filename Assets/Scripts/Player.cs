@@ -5,19 +5,18 @@ using Pathfinding;
 
 public class Player : MonoBehaviour {
   public Router router;
+  public Viewport viewport;
+
+  public Transform selector;
 
   public float speed = 1;
   public float maxSpeed = 1;
   public float smoothing = 1;
-  public Camera view;
-  public Camera viewport;
 
   public Collider2D main;
 
   public LayerMask pickupLayer;
   public LayerMask infoLayer;
-
-  public Transform test;
 
   public GameObject notifyIcon;
   public GameObject infoIcon;
@@ -34,7 +33,6 @@ public class Player : MonoBehaviour {
   private Vector2 correction { get { return transform.position - main.bounds.center; } }
 
   void Start() {
-    view.orthographicSize = Manager.size;
     body = GetComponent<Rigidbody2D>();
     position = transform.position;
   }
@@ -61,11 +59,7 @@ public class Player : MonoBehaviour {
     }
 
     if (Input.GetMouseButtonUp(0)) {
-        Vector3 click = viewport.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-        Vector2 scale = new Vector2(((float)view.pixelWidth / (float)viewport.pixelWidth), ((float)view.pixelHeight / (float)viewport.pixelHeight));
-        Vector2 offset = (Vector2)(click - viewport.transform.position);
-
-        Navigate(new Vector3(click.x + (offset.x * scale.x), click.y + (offset.y * scale.y), 0));
+      Navigate(viewport.mouse);
     }
 
     //transform.position = position; //Manager.Snap(position);
@@ -86,6 +80,8 @@ public class Player : MonoBehaviour {
     // Vector3 position = Vector2.SmoothDamp(body.position, target, ref velocityRef, smoothing, maxSpeed, Time.fixedDeltaTime);
 
     body.MovePosition(position);
+
+    // transform.position = position;
   }
 
   void OnDrawGizmos() {
@@ -103,11 +99,17 @@ public class Player : MonoBehaviour {
 
   private void Navigate(Vector2 point) {
     Vector2[] path = router.Find(transform.position, point);
+
+    selector.transform.position = router.grid.Get(point).position;
+
+    StopCoroutine("Flash");
+    StartCoroutine("Flash");
+
     if (path == null) return;
     progress = 0;
     this.path = path;
 
-    Debug.Log("Navigate");
+    Debug.Log("Navigate " + path.Length);
 
     StopCoroutine("Follow");
     StartCoroutine("Follow");
@@ -128,6 +130,15 @@ public class Player : MonoBehaviour {
       position = Vector2.MoveTowards(position, current + correction, speed);
 
       yield return null;
+    }
+  }
+
+  private IEnumerator Flash() {
+    for (int i = 0; i < 3; i++) {
+      selector.gameObject.SetActive(true);
+      yield return new WaitForSeconds(0.5f);
+      selector.gameObject.SetActive(false);
+      yield return new WaitForSeconds(0.5f);
     }
   }
 }

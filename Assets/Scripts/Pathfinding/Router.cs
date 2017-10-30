@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Pathfinding {
@@ -73,24 +74,8 @@ namespace Pathfinding {
       // Flip it the right way
       path.Reverse();
 
-      // Simplify & return Vector2[]
-      return Simplify(path);
-    }
-
-    public Vector2[] Simplify(List<Tile> path) {
-      List<Vector2> waypoints = new List<Vector2>();
-      Vector2 direction = Vector2.zero;
-
-      // Loop through the path & only keep points if the direction has changed
-      for (int i = 1; i < path.Count; i++) {
-        Vector2 current = new Vector2(path[i - 1].x - path[i].x, path[i - 1].y - path[i].y);
-        //if (current != direction) {
-          waypoints.Add(path[i].position);
-          direction = current;
-        //}
-      }
-
-      return waypoints.ToArray();
+      // Return path as Vector2[]
+      return path.Select(x => x.position).ToArray();
     }
   }
 }

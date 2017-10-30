@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class View : MonoBehaviour {
-  public Camera view;
+  public Camera render;
   public Transform screen;
   public RenderTexture texture;
 
@@ -11,7 +11,7 @@ public class View : MonoBehaviour {
     texture.width = Manager.width;
     texture.height = Manager.height;
 
-    view.orthographicSize = (float)(texture.width / 10) * ((float)Screen.height / (float)Screen.width) * 0.5f;
-    screen.localScale = new Vector3(texture.width / 10, texture.height / 10, 1);
+    render.orthographicSize = (float)texture.width * ((float)Screen.height / (float)Screen.width) * 0.5f;
+    screen.localScale = new Vector3(texture.width, texture.height, 1);
   }
 }
