@@ -68,7 +68,7 @@ public class Player : MonoBehaviour {
         Navigate(new Vector3(click.x + (offset.x * scale.x), click.y + (offset.y * scale.y), 0));
     }
 
-    transform.position = position; //Manager.Snap(position);
+    //transform.position = position; //Manager.Snap(position);
   }
 
   void FixedUpdate() {
@@ -84,7 +84,8 @@ public class Player : MonoBehaviour {
     // target += (Vector2)(velocity * speed * Time.fixedDeltaTime);
 
     // Vector3 position = Vector2.SmoothDamp(body.position, target, ref velocityRef, smoothing, maxSpeed, Time.fixedDeltaTime);
-    // body.MovePosition(position);
+
+    body.MovePosition(position);
   }
 
   void OnDrawGizmos() {
@@ -116,7 +117,7 @@ public class Player : MonoBehaviour {
     Vector2 current = path[0];
 
     while (true) {
-      if (Vector2.Distance(position, current + correction) < 0.5f) {
+      if (Vector2.Distance(transform.position, current + correction) < 0.5f) {
         progress++;
 
         if (progress >= path.Length) yield break;

@@ -176,7 +176,7 @@ Transform:
   m_Children:
   - {fileID: 190501486}
   m_Father: {fileID: 582188439}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &78865660
 MonoBehaviour:
@@ -305,10 +305,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 276374172}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 64, y: 64, z: 1}
   m_Children: []
-  m_Father: {fileID: 1747011550}
+  m_Father: {fileID: 582188439}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &276374174
@@ -585,6 +585,7 @@ Transform:
   m_LocalPosition: {x: 2, y: 16, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 276374173}
   - {fileID: 78865659}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -612,6 +613,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80447be72aa30f4698491fd06d49a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usePixelPerfect: 1
+  view: {fileID: 78865660}
   follow: {fileID: 1747011550}
   speed: 0.5
   limit: 10
@@ -4447,7 +4450,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1747011550}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1702276562
 CircleCollider2D:
@@ -4613,7 +4616,6 @@ Transform:
   m_LocalPosition: {x: 2, y: 16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 276374173}
   - {fileID: 1702276561}
   m_Father: {fileID: 0}
   m_RootOrder: 1
