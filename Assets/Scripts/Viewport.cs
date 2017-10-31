@@ -38,6 +38,10 @@ public class Viewport : MonoBehaviour {
     Track();
   }
 
+  /// <summary>
+  /// Resizes the pixel perfect renderer and the players viewport to fit the screen.
+  /// Gets called automagically when screen resolution changes.
+  /// </summary>
   public void Resize() {
     if (usePixelPerfect && !pixelRenderer.gameObject.activeInHierarchy) {
       viewport.targetTexture = texture;
@@ -58,6 +62,10 @@ public class Viewport : MonoBehaviour {
     screen.localScale = new Vector3(Render.width, Render.height, 1);
   }
 
+  /// <summary>
+  /// Transforms the mouse position from the screen into actual world coordinates.
+  /// Takes into account the pixel perfext renderer if it's used.
+  /// </summary>
   private void Track() {
     float ratio = (float)Screen.width / (float)Screen.height;
     float from = viewport.orthographicSize * 2;

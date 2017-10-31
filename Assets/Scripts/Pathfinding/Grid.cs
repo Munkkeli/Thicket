@@ -48,6 +48,11 @@ namespace Pathfinding {
       }
     }
 
+    /// <summary>
+    /// Gets a tile at a world coordinate and returns it.
+    /// </summary>
+    /// <param name="point">The position you want to get the tile at.</param>
+    /// <returns>A grid tile.</returns>
     public Tile Get(Vector2 point) {
       Vector2 local = transform.InverseTransformPoint(point);
       int x = Mathf.RoundToInt((width - 1) * Mathf.Clamp01(local.x / size.x));
@@ -55,6 +60,11 @@ namespace Pathfinding {
       return grid[x, y];
     }
 
+    /// <summary>
+    /// Gets all neighboring tiles for a tile.
+    /// </summary>
+    /// <param name="tile">The tile you want to get the neighbors for.</param>
+    /// <returns>An array of tiles.</returns>
     public List<Tile> Neighbors(Tile tile) {
       List<Tile> neighbors = new List<Tile>();
       for (int x = -1; x <= 1; x++) {
@@ -73,6 +83,12 @@ namespace Pathfinding {
       return neighbors;
     }
 
+    /// <summary>
+    /// Calculates a distance between two tiles.
+    /// </summary>
+    /// <param name="a">Start tile.</param>
+    /// <param name="b">End tile.</param>
+    /// <returns>The calculated distance in tiles as an int.</returns>
     public int Distance(Tile a, Tile b) {
       int x = Mathf.Abs(a.x - b.x);
       int y = Mathf.Abs(a.y - b.y);
@@ -80,6 +96,9 @@ namespace Pathfinding {
       return (14 * x) + (10 * (y - x));
     }
 
+    /// <summary>
+    /// Creates the grid and checks the collisions for tiles.
+    /// </summary>
     private void Create() {
       grid = new Tile[width, height];
 

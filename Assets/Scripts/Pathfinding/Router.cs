@@ -13,6 +13,12 @@ namespace Pathfinding {
       grid = GetComponent<Grid>();
     }
 
+    /// <summary>
+    /// Finds a path between two points.
+    /// </summary>
+    /// <param name="start">The starting point.</param>
+    /// <param name="stop">The end goal.</param>
+    /// <returns>The path as a Vector2 array.</returns>
     public Vector2[] Find(Vector2 start, Vector2 stop) {
       bool success = false;
 
@@ -61,6 +67,12 @@ namespace Pathfinding {
       return null;
     }
 
+    /// <summary>
+    /// Retraces the path from searched tiles.
+    /// </summary>
+    /// <param name="first">Start tile.</param>
+    /// <param name="last">End tile.</param>
+    /// <returns>The path as a Vector2 array.</returns>
     private Vector2[] Retrace(Tile first, Tile last) {
       List<Tile> path = new List<Tile>();
       Tile current = last;

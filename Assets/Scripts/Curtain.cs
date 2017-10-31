@@ -21,6 +21,10 @@ public class Curtain : MonoBehaviour {
     render.material.SetFloat("_Size", state);
   }
 
+  /// <summary>
+  /// Resizes the curtain to fill the screen.
+  /// Gets called automagically when screen resolution changes.
+  /// </summary>
   public void Resize() {
     float ratio = (float)Screen.width / (float)Screen.height;
     float size = ratio > 1 ? (Render.size * 2) * ratio : Render.size * 2;
@@ -28,6 +32,9 @@ public class Curtain : MonoBehaviour {
     state = visible ? 0 : 0.75f;
   }
 
+  /// <summary>
+  /// Opens the curtain when game starts.
+  /// </summary>
   private IEnumerator Load() {
     yield return new WaitForSeconds(0.5f);
     visible = false;
