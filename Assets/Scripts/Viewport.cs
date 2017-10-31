@@ -6,32 +6,26 @@ using UnityEngine;
 public class Viewport : MonoBehaviour {
   public bool usePixelPerfect = true;
 
-  public View view;
+  public Camera pixelRenderer;
   public Transform follow;
-  public Transform reveal;
+  public Transform screen;
   public float speed = 1;
   public float limit = 2;
-  public bool curtain = true;
 
   public Vector2 mouse;
 
   private Camera viewport;
+  private RenderTexture texture;
   private Vector3 position;
   private Vector3 velocity;
 
-  private Renderer curtainRender;
-  private float revealState;
-  private float revealStateRef;
-
   void Awake() {
     viewport = GetComponent<Camera>();
-    viewport.orthographicSize = Manager.size;
+    texture = new RenderTexture(Render.width, Render.height, 16, RenderTextureFormat.ARGB32);
+    texture.filterMode = FilterMode.Point;
+    screen.GetComponent<Renderer>().material.mainTexture = texture;
 
-    RecalculateView();
-  }
-
-  void Start() {
-    // curtain = false;
+    Controller.OnScreenResize += Resize;
   }
 
   void Update () {
@@ -39,39 +33,39 @@ public class Viewport : MonoBehaviour {
     next.z = -10;
     position = Vector3.SmoothDamp(position, next, ref velocity, speed, limit, Time.deltaTime);
 
-    transform.position = position; //Manager.Snap(position);
+    transform.position = usePixelPerfect ? Render.Snap(position) : position;
 
-    if (usePixelPerfect && !view.gameObject.activeInHierarchy) {
-      viewport.targetTexture = view.texture;
-      view.gameObject.SetActive(true);
-    } else if (!usePixelPerfect && view.gameObject.activeInHierarchy) {
+    Track();
+  }
+
+  public void Resize() {
+    if (usePixelPerfect && !pixelRenderer.gameObject.activeInHierarchy) {
+      viewport.targetTexture = texture;
+      pixelRenderer.gameObject.SetActive(true);
+    } else if (!usePixelPerfect && pixelRenderer.gameObject.activeInHierarchy) {
       viewport.targetTexture = null;
-      view.gameObject.SetActive(false);
+      pixelRenderer.gameObject.SetActive(false);
     }
 
-    TrackMouse();
+    // Pixel perfect camera needs to refresh to calculate input correctly
+    if (!usePixelPerfect) {
+      pixelRenderer.gameObject.SetActive(true);
+      pixelRenderer.gameObject.SetActive(false);
+    }
 
-    revealState = Mathf.SmoothDamp(revealState, curtain ? 0 : 0.75f, ref revealStateRef, 0.5f);
-    curtainRender.material.SetFloat("_Size", revealState);
+    viewport.orthographicSize = Render.size;
+    pixelRenderer.orthographicSize = (float)Render.width * ((float)Screen.height / (float)Screen.width) * 0.5f;
+    screen.localScale = new Vector3(Render.width, Render.height, 1);
   }
 
-  private void RecalculateView() {
-    float ratio = (float)Screen.width / (float)Screen.height;
-    float size = ratio > 1 ? (Manager.size * 2) * ratio : Manager.size * 2;
-    reveal.localScale = new Vector2(size, size);
-    curtainRender = reveal.GetComponent<Renderer>();
-    revealState = curtain ? 0 : 0.75f;
-    curtainRender.material.SetFloat("_Size", revealState);
-  }
-
-  private void TrackMouse() {
+  private void Track() {
     float ratio = (float)Screen.width / (float)Screen.height;
     float from = viewport.orthographicSize * 2;
-    float to = view.render.orthographicSize * 2;
+    float to = pixelRenderer.orthographicSize * 2;
 
     float projection = from / to;
-    Vector3 mousePositionRelativeToCenter = (view.render.ScreenToWorldPoint(Input.mousePosition) - position) * projection;
-    float correction = usePixelPerfect ? (from * ratio) / (from * Manager.ratio) : 1;
+    Vector3 mousePositionRelativeToCenter = (pixelRenderer.ScreenToWorldPoint(Input.mousePosition) - position) * projection;
+    float correction = usePixelPerfect ? (from * ratio) / (from * Render.ratio) : 1;
 
     this.mouse = position + (mousePositionRelativeToCenter / correction);
   }

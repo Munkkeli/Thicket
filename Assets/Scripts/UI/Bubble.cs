@@ -13,7 +13,7 @@ public class Bubble : MonoBehaviour {
   void Start() {
     height = bubble.localPosition.y;
 
-    bubble.position = Manager.Snap(bubble.position, true);
+    bubble.position = Render.Snap(bubble.position, true);
   }
 
   void Update() {

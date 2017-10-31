@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Manager {
+public static class Render {
   public static int scale = 1;
   public static int width = 144 * scale;
   public static int height = 256 * scale;
@@ -16,8 +16,8 @@ public static class Manager {
   }
 
   public static Vector3 Snap(Vector3 value, bool centered = false) {
-    value = new Vector3(Mathf.Round(value.x * Manager.ppu) / Manager.ppu, Mathf.Round(value.y * Manager.ppu) / Manager.ppu, value.z);
-    if (centered) value += new Vector3((1f / Manager.ppu) / 2f, (1f / Manager.ppu) / 2f, 0);
+    value = new Vector3(Mathf.Round(value.x * Render.ppu) / Render.ppu, Mathf.Round(value.y * Render.ppu) / Render.ppu, value.z);
+    if (centered) value += new Vector3((1f / Render.ppu) / 2f, (1f / Render.ppu) / 2f, 0);
     return value;
   }
 }

@@ -11,7 +11,7 @@ namespace Pathfinding {
     public LayerMask collision;
     public TiledMap map;
 
-    public Vector2 size { get { return new Vector2(map.NumTilesWide, map.NumTilesHigh) * (map.TileHeight / Manager.ppu); } }
+    public Vector2 size { get { return new Vector2(map.NumTilesWide, map.NumTilesHigh) * (map.TileHeight / Render.ppu); } }
     public Rect rect { get { return new Rect(transform.position.x, transform.position.y, size.x, -size.y); } }
     public int max { get { return width * height; } }
 
