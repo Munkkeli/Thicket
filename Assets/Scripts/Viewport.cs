@@ -8,8 +8,10 @@ public class Viewport : MonoBehaviour {
 
   public View view;
   public Transform follow;
+  public Transform reveal;
   public float speed = 1;
   public float limit = 2;
+  public bool curtain = true;
 
   public Vector2 mouse;
 
@@ -17,9 +19,19 @@ public class Viewport : MonoBehaviour {
   private Vector3 position;
   private Vector3 velocity;
 
+  private Renderer curtainRender;
+  private float revealState;
+  private float revealStateRef;
+
   void Awake() {
     viewport = GetComponent<Camera>();
     viewport.orthographicSize = Manager.size;
+
+    RecalculateView();
+  }
+
+  void Start() {
+    // curtain = false;
   }
 
   void Update () {
@@ -38,6 +50,18 @@ public class Viewport : MonoBehaviour {
     }
 
     TrackMouse();
+
+    revealState = Mathf.SmoothDamp(revealState, curtain ? 0 : 0.75f, ref revealStateRef, 0.5f);
+    curtainRender.material.SetFloat("_Size", revealState);
+  }
+
+  private void RecalculateView() {
+    float ratio = (float)Screen.width / (float)Screen.height;
+    float size = ratio > 1 ? (Manager.size * 2) * ratio : Manager.size * 2;
+    reveal.localScale = new Vector2(size, size);
+    curtainRender = reveal.GetComponent<Renderer>();
+    revealState = curtain ? 0 : 0.75f;
+    curtainRender.material.SetFloat("_Size", revealState);
   }
 
   private void TrackMouse() {
