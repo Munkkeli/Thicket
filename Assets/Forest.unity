@@ -835,8 +835,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37df819d1b7efc441ac677dc9a7fbdbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Gate Key
-  sprite: {fileID: 21300000, guid: 62d781df8bf4649a2bfea1f6ae8af734, type: 3}
+  item:
+    name: Key
+    sprite: {fileID: 21300000, guid: 62d781df8bf4649a2bfea1f6ae8af734, type: 3}
 --- !u!1 &605111413
 GameObject:
   m_ObjectHideFlags: 0
@@ -4832,6 +4833,7 @@ MonoBehaviour:
     m_Bits: 2048
   notifyIcon: {fileID: 1310981436395028, guid: 71188d4c4a34be54ab68b74c7e4af184, type: 2}
   infoIcon: {fileID: 1483286863524190, guid: 57b5ead0f7f0b374fbd41167d95d9726, type: 2}
+  inventory: []
 --- !u!4 &1747011550
 Transform:
   m_ObjectHideFlags: 0
@@ -4964,8 +4966,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37df819d1b7efc441ac677dc9a7fbdbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  sprite: {fileID: 0}
+  item:
+    name: 
+    sprite: {fileID: 0}
 --- !u!61 &1867394714
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -21,6 +21,8 @@ public class Player : MonoBehaviour {
   public GameObject notifyIcon;
   public GameObject infoIcon;
 
+  public List<Item> inventory = new List<Item>();
+
   private Vector2[] path;
   private int progress;
 
@@ -46,8 +48,19 @@ public class Player : MonoBehaviour {
       }
     }
 
+    bool pickup = false;
     Dictionary<Collider2D, GameObject> toRemove = new Dictionary<Collider2D, GameObject>();
+    Dictionary<Collider2D, GameObject> toPickup = new Dictionary<Collider2D, GameObject>();
     foreach (KeyValuePair<Collider2D, GameObject> coll in inRange) {
+      if (!pickup && Input.GetMouseButtonDown(0) && coll.Key.bounds.Contains(viewport.mouse)) {
+        Item item = coll.Key.gameObject.GetComponent<Pickup>().item;
+        Debug.Log("Pickup " + item.name);
+        inventory.Add(item);
+
+        toPickup.Add(coll.Key, coll.Value);
+        pickup = true;
+      }
+
       if (Vector2.Distance(coll.Key.bounds.center, transform.position) > 6) {
         toRemove.Add(coll.Key, coll.Value);
       }
@@ -58,7 +71,14 @@ public class Player : MonoBehaviour {
       Destroy(coll.Value);
     }
 
-    if (Input.GetMouseButtonUp(0)) {
+    foreach (KeyValuePair<Collider2D, GameObject> coll in toPickup) {
+      inRange.Remove(coll.Key);
+      Destroy(coll.Value);
+      Destroy(coll.Key.gameObject);
+    }
+
+    if (!pickup && Input.GetMouseButtonUp(0)) {
+
       Navigate(viewport.mouse);
     }
 

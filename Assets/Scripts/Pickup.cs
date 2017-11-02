@@ -3,6 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Pickup : MonoBehaviour {
-  public string name;
-  public Sprite sprite;
+  public Item item;
 }
