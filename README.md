@@ -24,4 +24,4 @@ The game has two endings, one where you make it home in time and the other where
 ### Extra objectives
 The game features collectible items in hidden areas that experienced players can try to collect. The collectibles also boost the replayability of the game, changing the experience from just making it to the end to collecting everything on the way.
 
-ps. For credits and links on resources we used to create this game, take a look at [CREDITS.md](CREDITS.md)
+ps. For credits and links on resources we used to create this game, take a look at [CREDITS.md](/CREDITS.md)
