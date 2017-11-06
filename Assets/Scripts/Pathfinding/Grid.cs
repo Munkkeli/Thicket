@@ -61,6 +61,15 @@ namespace Pathfinding {
     }
 
     /// <summary>
+    /// Modifies the collision value of a tile.
+    /// </summary>
+    /// <param name="point">The position you want to modify the tile at.</param>
+    public void Set(Vector2 point, bool value) {
+      Tile tile = Get(point);
+      tile.walkable = value;
+    }
+
+    /// <summary>
     /// Gets all neighboring tiles for a tile.
     /// </summary>
     /// <param name="tile">The tile you want to get the neighbors for.</param>
