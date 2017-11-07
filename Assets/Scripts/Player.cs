@@ -53,12 +53,20 @@ public class Player : MonoBehaviour {
     Dictionary<Collider2D, GameObject> toPickup = new Dictionary<Collider2D, GameObject>();
     foreach (KeyValuePair<Collider2D, GameObject> coll in inRange) {
       if (!pickup && Input.GetMouseButtonDown(0) && coll.Key.bounds.Contains(viewport.mouse)) {
-        Item item = coll.Key.gameObject.GetComponent<Pickup>().item;
-        Debug.Log("Pickup " + item.name);
-        inventory.Add(item);
+        if (pickupLayer == (pickupLayer | (1 << coll.Key.gameObject.layer))) {
+          Item item = coll.Key.gameObject.GetComponent<Pickup>().item;
+          Debug.Log("Pickup " + item.name);
+          inventory.Add(item);
 
-        toPickup.Add(coll.Key, coll.Value);
-        pickup = true;
+          toPickup.Add(coll.Key, coll.Value);
+          pickup = true;
+        }
+
+        if (infoLayer == (infoLayer | (1 << coll.Key.gameObject.layer))) {
+          Debug.Log(coll.Key.gameObject);
+          coll.Key.GetComponent<Usable>().OnClick(this);
+          toRemove.Add(coll.Key, coll.Value);
+        }
       }
 
       if (Vector2.Distance(coll.Key.bounds.center, transform.position) > 6) {

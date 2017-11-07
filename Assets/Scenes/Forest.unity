@@ -441,7 +441,6 @@ MonoBehaviour:
   collision:
   - {x: -14, y: 116}
   state: 0
-  toggle: 0
 --- !u!1 &444271709
 GameObject:
   m_ObjectHideFlags: 0
@@ -4476,7 +4475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062373798}
   - component: {fileID: 1062373797}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5118,8 +5117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    name: 
-    sprite: {fileID: 0}
+    name: plank
+    sprite: {fileID: 21300000, guid: bd978ef712eaa08419fe5d150151aab4, type: 3}
 --- !u!61 &1867394714
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Usable : MonoBehaviour {
@@ -10,21 +11,25 @@ public class Usable : MonoBehaviour {
   public Vector2[] collision;
   public bool state;
 
-  public bool toggle;
+  private int layer;
 
   void Start() {
+    this.layer = gameObject.layer;
     Toggle(this.state);
   }
 
-  void Update() {
-    if (toggle) {
-      toggle = false;
-      Toggle(!state);
+  public void OnClick(Player player) {
+    Item item = player.inventory.Find(x => x.name == required);
+    if (item != null) {
+      Toggle(true);
+      player.inventory.Remove(item);
     }
   }
 
-  public void Toggle(bool state) {
+  private void Toggle(bool state) {
     this.state = state;
+
+    gameObject.layer = !state ? this.layer : 0;
 
     foreach (GameObject thing in onDisabled) {
       thing.SetActive(!state);
