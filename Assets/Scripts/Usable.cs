@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Usable : MonoBehaviour {
   public Pathfinding.Grid grid;
-  public string required;
+  public Item required;
   public GameObject[] onDisabled;
   public GameObject[] onEnabled;
   public Vector2[] collision;
@@ -19,10 +19,9 @@ public class Usable : MonoBehaviour {
   }
 
   public void OnClick(Player player) {
-    Item item = player.inventory.Find(x => x.name == required);
-    if (item != null) {
+    if (player.inventory.Contains(required)) {
       Toggle(true);
-      player.inventory.Remove(item);
+      player.inventory.Remove(required);
     }
   }
 

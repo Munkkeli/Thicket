@@ -15,7 +15,10 @@ public class Player : MonoBehaviour {
 
   public Collider2D main;
 
+  public float pickupDistance = 4;
   public LayerMask pickupLayer;
+
+  public float infoDistance = 6;
   public LayerMask infoLayer;
 
   public GameObject notifyIcon;
@@ -40,9 +43,9 @@ public class Player : MonoBehaviour {
   }
 
   void Update() {
-    Collider2D[] colls = Physics2D.OverlapCircleAll(transform.position, 6, (pickupLayer | infoLayer));
+    Collider2D[] colls = Physics2D.OverlapCircleAll(transform.position, infoDistance, (pickupLayer | infoLayer));
     foreach (Collider2D coll in colls) {
-      if (!inRange.ContainsKey(coll)) {
+      if (!inRange.ContainsKey(coll) && Vector2.Distance(coll.bounds.center, transform.position) <= infoDistance) {
         bool isInfo = infoLayer == (infoLayer | (1 << coll.gameObject.layer));
         inRange.Add(coll, Instantiate(isInfo ? infoIcon : notifyIcon, coll.bounds.center, Quaternion.identity));
       }
@@ -52,8 +55,10 @@ public class Player : MonoBehaviour {
     Dictionary<Collider2D, GameObject> toRemove = new Dictionary<Collider2D, GameObject>();
     Dictionary<Collider2D, GameObject> toPickup = new Dictionary<Collider2D, GameObject>();
     foreach (KeyValuePair<Collider2D, GameObject> coll in inRange) {
+      float distance = Vector2.Distance(coll.Key.bounds.center, transform.position);
+
       if (!pickup && Input.GetMouseButtonDown(0) && coll.Key.bounds.Contains(viewport.mouse)) {
-        if (pickupLayer == (pickupLayer | (1 << coll.Key.gameObject.layer))) {
+        if (pickupLayer == (pickupLayer | (1 << coll.Key.gameObject.layer)) && distance <= pickupDistance) {
           Item item = coll.Key.gameObject.GetComponent<Pickup>().item;
           Debug.Log("Pickup " + item.name);
           inventory.Add(item);
@@ -62,14 +67,14 @@ public class Player : MonoBehaviour {
           pickup = true;
         }
 
-        if (infoLayer == (infoLayer | (1 << coll.Key.gameObject.layer))) {
+        if (infoLayer == (infoLayer | (1 << coll.Key.gameObject.layer)) && distance <= pickupDistance) {
           Debug.Log(coll.Key.gameObject);
           coll.Key.GetComponent<Usable>().OnClick(this);
           toRemove.Add(coll.Key, coll.Value);
         }
       }
 
-      if (Vector2.Distance(coll.Key.bounds.center, transform.position) > 6) {
+      if (distance > infoDistance) {
         toRemove.Add(coll.Key, coll.Value);
       }
     }
@@ -113,6 +118,9 @@ public class Player : MonoBehaviour {
   }
 
   void OnDrawGizmos() {
+    Gizmos.color = Color.white;
+    Gizmos.DrawWireSphere(transform.position, 6);
+
     if (path == null) return;
 
     for (int i = progress; i < path.Length; i++) {
@@ -137,27 +145,27 @@ public class Player : MonoBehaviour {
     progress = 0;
     this.path = path;
 
-    Debug.Log("Navigate " + path.Length);
-
     StopCoroutine("Follow");
     StartCoroutine("Follow");
   }
 
   private IEnumerator Follow() {
-    Vector2 current = path[0];
+    if (path.Length > 0) {
+      Vector2 current = path[0];
 
-    while (true) {
-      if (Vector2.Distance(transform.position, current + correction) < 0.5f) {
-        progress++;
+      while (true) {
+        if (Vector2.Distance(transform.position, current + correction) < 0.5f) {
+          progress++;
 
-        if (progress >= path.Length) yield break;
+          if (progress >= path.Length) yield break;
 
-        current = path[progress];
+          current = path[progress];
+        }
+
+        position = Vector2.MoveTowards(position, current + correction, speed);
+
+        yield return null;
       }
-
-      position = Vector2.MoveTowards(position, current + correction, speed);
-
-      yield return null;
     }
   }
 
