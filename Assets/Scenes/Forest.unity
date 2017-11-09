@@ -506,7 +506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 1491659145}
-  required: plank
+  required: {fileID: 11400000, guid: 1bb7cc8dcfee945659ce2b20103e53c4, type: 2}
   onDisabled:
   - {fileID: 1062373796}
   onEnabled:
@@ -931,9 +931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37df819d1b7efc441ac677dc9a7fbdbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    name: Key
-    sprite: {fileID: 21300000, guid: 62d781df8bf4649a2bfea1f6ae8af734, type: 3}
+  item: {fileID: 11400000, guid: 0819912ea30ce438ab37a13dd1759ee1, type: 2}
 --- !u!1 &605111413
 GameObject:
   m_ObjectHideFlags: 0
@@ -4586,9 +4584,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2046859751
-  m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: bd978ef712eaa08419fe5d150151aab4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5121,9 +5119,11 @@ MonoBehaviour:
   maxSpeed: 10
   smoothing: 1
   main: {fileID: 1702276564}
+  pickupDistance: 4
   pickupLayer:
     serializedVersion: 2
     m_Bits: 1024
+  infoDistance: 6
   infoLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -5173,9 +5173,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1867394712}
   - component: {fileID: 1867394711}
-  - component: {fileID: 1867394710}
-  - component: {fileID: 1867394713}
   - component: {fileID: 1867394714}
+  - component: {fileID: 1867394713}
   m_Layer: 10
   m_Name: Plank
   m_TagString: Untagged
@@ -5183,17 +5182,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1867394710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1867394709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1874989c5e2da094ea00112c6a895694, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1867394711
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5262,9 +5250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37df819d1b7efc441ac677dc9a7fbdbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    name: plank
-    sprite: {fileID: 21300000, guid: bd978ef712eaa08419fe5d150151aab4, type: 3}
+  item: {fileID: 11400000, guid: 1bb7cc8dcfee945659ce2b20103e53c4, type: 2}
 --- !u!61 &1867394714
 BoxCollider2D:
   m_ObjectHideFlags: 0

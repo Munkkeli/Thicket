@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
-[System.Serializable]
-public class Item {
-  public string name;
+[CreateAssetMenu(fileName = "Data", menuName = "Inventory/List", order = 1)]
+public class Item : ScriptableObject {
+  public new string name = "New Game Item";
   public Sprite sprite;
+  public bool collectable = false;
 }
