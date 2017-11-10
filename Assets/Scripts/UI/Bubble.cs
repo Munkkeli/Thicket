@@ -2,25 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bubble : MonoBehaviour {
-  public float bobble = 0.5f;
-  public float frequency = 1f;
+namespace UI {
+  public class Bubble : MonoBehaviour {
+    public float bobble = 0.5f;
+    public float frequency = 1f;
 
-  public Transform bubble;
+    public Transform bubble;
 
-  private float height = 0;
+    private float height = 0;
 
-  void Start() {
-    height = bubble.localPosition.y;
+    void Start() {
+      height = bubble.localPosition.y;
 
-    bubble.position = Render.Snap(bubble.position, true);
-  }
+      bubble.position = Render.Snap(bubble.position, true);
+    }
 
-  void Update() {
-    Vector3 local = bubble.localPosition;
-    local.y = height + (Mathf.Sin(Time.time * frequency) * bobble);
-    bubble.localPosition = local;
+    void Update() {
+      Vector3 local = bubble.localPosition;
+      local.y = height + (Mathf.Sin(Time.time * frequency) * bobble);
+      bubble.localPosition = local;
 
-    // transform.position = Manager.Snap(transform.position, true);
+      // transform.position = Manager.Snap(transform.position, true);
+    }
   }
 }
