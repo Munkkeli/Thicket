@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using View;
 
 public class Player : MonoBehaviour {
   public Router router;

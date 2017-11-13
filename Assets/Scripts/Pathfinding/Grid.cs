@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Tiled2Unity;
+using View;
 
 namespace Pathfinding {
   [RequireComponent(typeof(TiledMap))]
