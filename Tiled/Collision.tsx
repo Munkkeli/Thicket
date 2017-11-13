@@ -13,6 +13,26 @@
    <object id="1" x="4" y="4.0625" width="8" height="7.875"/>
   </objectgroup>
  </tile>
+ <tile id="4">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="0" width="3" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="5">
+  <objectgroup draworder="index">
+   <object id="2" x="13" y="0" width="3" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="6">
+  <objectgroup draworder="index">
+   <object id="3" x="0" y="0" width="16" height="3"/>
+  </objectgroup>
+ </tile>
+ <tile id="7">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="13" width="16" height="3"/>
+  </objectgroup>
+ </tile>
  <tile id="8">
   <objectgroup draworder="index">
    <object id="2" x="0" y="16">
