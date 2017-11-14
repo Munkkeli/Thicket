@@ -15,7 +15,9 @@ namespace View {
 
     public Vector2 mouse;
 
-    private Camera viewport;
+    [HideInInspector]
+    public Camera viewport;
+
     private RenderTexture texture;
     private Vector3 position;
     private Vector3 velocity;

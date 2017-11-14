@@ -185,11 +185,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 80042807}
+  - component: {fileID: 80042808}
   - component: {fileID: 80042806}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Gate
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -210,7 +211,7 @@ MonoBehaviour:
   - {fileID: 291925206}
   onEnabled: []
   collision:
-  - {x: -12, y: 178}
+  - {x: -12, y: 176}
   state: 0
 --- !u!4 &80042807
 Transform:
@@ -226,6 +227,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &80042808
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 80042805}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2
 --- !u!1 &190501485
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,7 +578,7 @@ MonoBehaviour:
   onEnabled:
   - {fileID: 968533753}
   collision:
-  - {x: -14, y: 116}
+  - {x: -14, y: 115}
   state: 0
 --- !u!1 &444271709
 GameObject:
@@ -695,7 +711,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1281
+    m_Bits: 1313
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -745,13 +761,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80447be72aa30f4698491fd06d49a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usePixelPerfect: 0
+  usePixelPerfect: 1
   pixelRenderer: {fileID: 78865658}
   follow: {fileID: 1747011550}
   screen: {fileID: 190501486}
   speed: 0.5
   limit: 10
   mouse: {x: 0, y: 0}
+  viewport: {fileID: 0}
 --- !u!1001 &584250292
 Prefab:
   m_ObjectHideFlags: 0
@@ -4891,7 +4908,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 749091689
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
 --- !u!33 &1373235680
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4939,6 +4956,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39eab501b5124f4398a89380c799f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UI: {fileID: 1207944745813508, guid: 121560a6702996a4dae4a45e7446e22b, type: 2}
+  viewport: {fileID: 582188441}
 --- !u!4 &1467622282
 Transform:
   m_ObjectHideFlags: 0
@@ -4974,7 +4993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8480e24780fbd0b45be588c0ee71c854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualize: 0
+  visualize: 1
   collision:
     serializedVersion: 2
     m_Bits: 1
