@@ -4,13 +4,15 @@ using UnityEngine;
 
 namespace View {
   public static class Render {
-    public static int scale = 1;
-    public static int width = 144 * scale;
-    public static int height = 256 * scale;
+    public static int scale = 3;
     public static int ppu = 8;
 
-    public static float ratio = (float)width / (float)height;
-    public static float size = ((float)height / 2f) / ppu;
+    public static float dpi { get { return (Screen.dpi <= 0 ? 258 : Screen.dpi) / 258; } }
+    public static int width { get { return ((int)((Screen.width / dpi) / 16) * scale); } }
+    public static int height { get { return ((int)((Screen.height / dpi) / 16) * scale); } }
+
+    public static float ratio { get { return (float)width / (float)height; } }
+    public static float size { get { return ((float)height / 2f) / ppu; } }
 
     /// <summary>
     /// Snaps a position into pixel coordinates, thus eliminating pixels rendering wrongly.

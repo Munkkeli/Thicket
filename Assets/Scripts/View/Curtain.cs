@@ -5,6 +5,7 @@ using UnityEngine;
 namespace View {
   public class Curtain : MonoBehaviour {
     public bool visible = true;
+    public float cover = 0.75f;
     public float speed = 0.5f;
 
     private Renderer render;
@@ -18,7 +19,7 @@ namespace View {
     }
 
     void Update() {
-      state = Mathf.SmoothDamp(state, visible ? 0 : 0.75f, ref stateRef, speed);
+      state = Mathf.SmoothDamp(state, visible ? 0 : cover, ref stateRef, speed);
       render.material.SetFloat("_Size", state);
     }
 

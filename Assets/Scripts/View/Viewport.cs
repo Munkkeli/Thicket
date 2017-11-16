@@ -24,8 +24,7 @@ namespace View {
 
     void Awake() {
       viewport = GetComponent<Camera>();
-      texture = new RenderTexture(Render.width, Render.height, 16, RenderTextureFormat.ARGB32);
-      texture.filterMode = FilterMode.Point;
+      CreateTexture();
       screen.GetComponent<Renderer>().material.mainTexture = texture;
 
       Controller.OnScreenResize += Resize;
@@ -46,6 +45,13 @@ namespace View {
     /// Gets called automagically when screen resolution changes.
     /// </summary>
     public void Resize() {
+      // Resize the render texture
+      if (usePixelPerfect) {
+        CreateTexture();
+        screen.GetComponent<Renderer>().material.mainTexture = texture;
+        if (usePixelPerfect) viewport.targetTexture = texture;
+      }
+
       if (usePixelPerfect && !pixelRenderer.gameObject.activeInHierarchy) {
         viewport.targetTexture = texture;
         pixelRenderer.gameObject.SetActive(true);
@@ -79,6 +85,16 @@ namespace View {
       float correction = usePixelPerfect ? (from * ratio) / (from * Render.ratio) : 1;
 
       this.mouse = position + (mousePositionRelativeToCenter / correction);
+    }
+
+    private void CreateTexture() {
+      RenderTexture render = new RenderTexture(Render.width, Render.height, 16, RenderTextureFormat.ARGB32);
+      render.filterMode = FilterMode.Point;
+      render.name = Render.width + "x" + Render.height;
+      render.Create();
+
+      texture = render;
+      screen.GetComponent<Renderer>().material.mainTexture = texture;
     }
   }
 }

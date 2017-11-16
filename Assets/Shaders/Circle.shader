@@ -40,7 +40,7 @@
  
  
                  if(distance > _Size){
-                     return fixed4(0, 0, 0, 1);
+                     return _Color;
                  }
                  else{
                      return fixed4(1, 1, 1, 0);

@@ -25,7 +25,7 @@ public class Controller : MonoBehaviour {
     canvas.sortingLayerName = "UI";
   }
 
-  void Update () {
+  void FixedUpdate () {
     // Check if screen size has changed & call event
     if (width != Screen.width || height != Screen.height) {
       width = Screen.width;
