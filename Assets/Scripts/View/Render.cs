@@ -7,7 +7,7 @@ namespace View {
     public static int scale = 3;
     public static int ppu = 8;
 
-    public static float dpi { get { return (Screen.dpi <= 0 ? 258 : Screen.dpi) / 258; } }
+    public static float dpi { get { return ((Screen.dpi <= 0 ? 258 : Screen.dpi) / 258); } }
     public static int width { get { return ((int)((Screen.width / dpi) / 16) * scale); } }
     public static int height { get { return ((int)((Screen.height / dpi) / 16) * scale); } }
 

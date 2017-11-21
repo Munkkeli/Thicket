@@ -41,11 +41,11 @@ namespace Pathfinding {
       foreach (Tile tile in grid) {
         if (!tile.walkable) {
           Gizmos.color = new Color(Color.red.r, Color.red.g, Color.red.b, 0.5f);
-          Gizmos.DrawCube(Get(tile.position).position, new Vector2(square, square));
+          Gizmos.DrawCube(tile.position, new Vector2(square, square));
         }
 
         Gizmos.color = Color.white;
-        Gizmos.DrawWireCube(Get(tile.position).position, new Vector2(square, square));
+        Gizmos.DrawWireCube(tile.position, new Vector2(square, square));
       }
     }
 
