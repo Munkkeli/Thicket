@@ -160,6 +160,24 @@ Prefab:
       propertyPath: collision.m_Bits
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 60323371624981750, guid: 4856b780cb151be4ba6af75d22c462a7,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 60929906243380524, guid: 4856b780cb151be4ba6af75d22c462a7,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4856b780cb151be4ba6af75d22c462a7, type: 2}
   m_IsPrefabParent: 0
@@ -696,7 +714,7 @@ MonoBehaviour:
   onEnabled:
   - {fileID: 1770891305}
   collision:
-  - {x: -14, y: 115}
+  - {x: -3, y: 58}
   state: 0
 --- !u!58 &1385473391
 CircleCollider2D:
@@ -860,7 +878,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 30614ec941e63554a8e010b782a9ebf5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

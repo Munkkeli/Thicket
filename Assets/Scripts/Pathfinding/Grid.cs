@@ -55,17 +55,11 @@ namespace Pathfinding {
     /// <param name="point">The position you want to get the tile at.</param>
     /// <returns>A grid tile.</returns>
     public Tile Get(Vector2 point) {
-      Vector2 local = transform.InverseTransformPoint(point);
+      Vector2 local = transform.InverseTransformPoint(point - new Vector2(0, square / 2));
+
       int x = Mathf.RoundToInt((width - 1) * Mathf.Clamp01(local.x / size.x));
       int y = Mathf.RoundToInt((height - 1) * ((size.y + local.y) / size.y));
       return grid[x, y];
-    }
-
-    public Vector2 GetDemo(Vector2 point) {
-      Vector2 local = transform.InverseTransformPoint(point);
-      int x = Mathf.RoundToInt((width - 1) * Mathf.Clamp01(local.x / size.x));
-      int y = Mathf.RoundToInt((height - 1) * ((size.y + local.y) / size.y));
-      return new Vector2((x * square), (y * square));
     }
 
     /// <summary>
