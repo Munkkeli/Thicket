@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Circle
-  m_Shader: {fileID: 4800000, guid: 87c36ade346e104438d173ce585d0118, type: 3}
+  m_Name: Visibility
+  m_Shader: {fileID: 4800000, guid: 48513076c01fc1f47aa592819901ffce, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -38,5 +38,5 @@ Material:
     - _ScreenWidth: 640.45
     - _Size: 1
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 0.07058824, g: 0.28627452, b: 0.21960786, a: 1}
     - _Distort: {r: 0.5, g: 0.5, b: 1, a: 1}

@@ -16,10 +16,12 @@ namespace Pathfinding {
     public Rect rect { get { return new Rect(transform.position.x, transform.position.y, size.x, -size.y); } }
     public int max { get { return width * height; } }
 
+    [HideInInspector]
+    public float square;
+
     private Tile[,] grid;
     private int width;
     private int height;
-    private float square;
 
     void Awake() {
       if (map == null) map = GetComponent<TiledMap>();
