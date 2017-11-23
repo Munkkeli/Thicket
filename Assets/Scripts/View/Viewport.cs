@@ -10,9 +10,11 @@ namespace View {
     public Camera pixelRenderer;
     public Transform follow;
     public Transform screen;
+    public GameObject clouds;
     public float speed = 1;
     public float limit = 2;
 
+    [HideInInspector]
     public Vector2 mouse;
 
     [HideInInspector]
@@ -30,7 +32,11 @@ namespace View {
       Controller.OnScreenResize += Resize;
     }
 
-    void Update () {
+    void Start() {
+      clouds.SetActive(Visuals.current.hasClouds);
+    }
+
+    void Update() {
       Vector3 next = follow.position;
       next.z = -10;
       position = Vector3.SmoothDamp(position, next, ref velocity, speed, limit, Time.deltaTime);

@@ -144,13 +144,21 @@ public class Player : MonoBehaviour {
     }
   }
 
-  public void Move(Vector2 to) {
-    path = new Vector2[] { transform.position, to };
+  /// <summary>
+  /// Move player gradually to some other location, not taking collisions into accord.
+  /// </summary>
+  /// <param name="point">The position you want the player to move to.</param>
+  public void Move(Vector2 point) {
+    path = new Vector2[] { transform.position, point };
 
     StopCoroutine("Follow");
     StartCoroutine("Follow");
   }
 
+  /// <summary>
+  /// Pathfind the player to a certain location.
+  /// </summary>
+  /// <param name="to">The position you want the player to move to.</param>
   private void Navigate(Vector2 point) {
     Vector2[] path = router.Find(transform.position, point);
     if (path != null && path.Length > 10) path = null;
@@ -170,6 +178,9 @@ public class Player : MonoBehaviour {
     StartCoroutine("Follow");
   }
 
+  /// <summary>
+  /// Follow a path from the Router class.
+  /// </summary>
   private IEnumerator Follow() {
     if (path.Length > 0) {
       Vector2 current = path[0];
@@ -190,6 +201,9 @@ public class Player : MonoBehaviour {
     }
   }
 
+  /// <summary>
+  /// Flash the cursor indicating where the player is moving to.
+  /// </summary>
   private IEnumerator Flash() {
     for (int i = 0; i < 3; i++) {
       selectorRenderer.gameObject.SetActive(true);

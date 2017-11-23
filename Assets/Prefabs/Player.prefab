@@ -163,7 +163,7 @@ MonoBehaviour:
   router: {fileID: 0}
   viewport: {fileID: 0}
   selector: {fileID: 1978081015453166, guid: 54579fdf08c0a455fbcaaba793aad4df, type: 2}
-  move: {fileID: 21300000, guid: 98d76ea07b2280a4e9e6effb9be7275b, type: 3}
+  move: {fileID: 21300000, guid: e3022363d45e2594b81f08bcfd1182d7, type: 3}
   failure: {fileID: 21300000, guid: ab817d11160a7254491e08ce68d0d799, type: 3}
   speed: 0.1
   maxSpeed: 10
