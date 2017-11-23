@@ -41,11 +41,11 @@ namespace Pathfinding {
       foreach (Tile tile in grid) {
         if (!tile.walkable) {
           Gizmos.color = new Color(Color.red.r, Color.red.g, Color.red.b, 0.5f);
-          Gizmos.DrawCube(tile.position, new Vector2(square, square));
+          Gizmos.DrawCube(Get(tile.position).position, new Vector2(square, square));
         }
 
         Gizmos.color = Color.white;
-        Gizmos.DrawWireCube(tile.position, new Vector2(square, square));
+        Gizmos.DrawWireCube(Get(tile.position).position, new Vector2(square, square));
       }
     }
 
@@ -55,7 +55,10 @@ namespace Pathfinding {
     /// <param name="point">The position you want to get the tile at.</param>
     /// <returns>A grid tile.</returns>
     public Tile Get(Vector2 point) {
-      Vector2 local = transform.InverseTransformPoint(point - new Vector2(0, square / 2));
+      point.x = Mathf.RoundToInt(point.x / square) * square;
+      point.y = Mathf.RoundToInt(point.y / square) * square;
+
+      Vector2 local = transform.InverseTransformPoint(point);
 
       int x = Mathf.RoundToInt((width - 1) * Mathf.Clamp01(local.x / size.x));
       int y = Mathf.RoundToInt((height - 1) * ((size.y + local.y) / size.y));

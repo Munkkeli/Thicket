@@ -5,28 +5,36 @@ using Pathfinding;
 using View;
 
 public class Player : MonoBehaviour {
+  [HideInInspector]
   public Router router;
+  [HideInInspector]
   public Viewport viewport;
 
-  public Transform selector;
+  [Header("Pointer")]
+  public GameObject selector;
+  public Sprite move;
+  public Sprite failure;
 
+  [Header("Movement")]
   public float speed = 1;
   public float maxSpeed = 1;
   public float smoothing = 1;
-
   public Collider2D main;
 
+  [Header("Info & Pickup")]
   public float pickupDistance = 4;
   public LayerMask pickupLayer;
+  public GameObject pickupIcon;
 
+  [Space(10)]
   public float infoDistance = 6;
   public LayerMask infoLayer;
-
-  public GameObject notifyIcon;
   public GameObject infoIcon;
 
+  [Space(10)]
   public List<Item> inventory = new List<Item>();
 
+  private SpriteRenderer selectorRenderer;
   private Vector2[] path;
   private int progress;
 
@@ -41,6 +49,9 @@ public class Player : MonoBehaviour {
   void Start() {
     body = GetComponent<Rigidbody2D>();
     position = transform.position;
+
+    selectorRenderer = Instantiate(selector, Vector3.zero, Quaternion.identity).GetComponent<SpriteRenderer>();
+    selectorRenderer.gameObject.SetActive(false);
   }
 
   void Update() {
@@ -48,7 +59,7 @@ public class Player : MonoBehaviour {
     foreach (Collider2D coll in colls) {
       if (!inRange.ContainsKey(coll) && Vector2.Distance(coll.bounds.center, transform.position) <= infoDistance) {
         bool isInfo = infoLayer == (infoLayer | (1 << coll.gameObject.layer));
-        inRange.Add(coll, Instantiate(isInfo ? infoIcon : notifyIcon, coll.bounds.center, Quaternion.identity));
+        inRange.Add(coll, Instantiate(isInfo ? infoIcon : pickupIcon, coll.bounds.center, Quaternion.identity));
       }
     }
 
@@ -92,7 +103,6 @@ public class Player : MonoBehaviour {
     }
 
     if (!pickup && Input.GetMouseButtonUp(0)) {
-
       Navigate(viewport.mouse);
     }
 
@@ -134,15 +144,25 @@ public class Player : MonoBehaviour {
     }
   }
 
+  public void Move(Vector2 to) {
+    path = new Vector2[] { transform.position, to };
+
+    StopCoroutine("Follow");
+    StartCoroutine("Follow");
+  }
+
   private void Navigate(Vector2 point) {
     Vector2[] path = router.Find(transform.position, point);
+    if (path != null && path.Length > 10) path = null;
 
-    selector.transform.position = router.grid.Get(point).position;
+    selectorRenderer.transform.position = router.grid.Get(point).position;
+    selectorRenderer.sprite = (path == null) ? failure : move;
 
     StopCoroutine("Flash");
     StartCoroutine("Flash");
 
     if (path == null) return;
+
     progress = 0;
     this.path = path;
 
@@ -172,9 +192,9 @@ public class Player : MonoBehaviour {
 
   private IEnumerator Flash() {
     for (int i = 0; i < 3; i++) {
-      selector.gameObject.SetActive(true);
+      selectorRenderer.gameObject.SetActive(true);
       yield return new WaitForSeconds(0.5f);
-      selector.gameObject.SetActive(false);
+      selectorRenderer.gameObject.SetActive(false);
       yield return new WaitForSeconds(0.5f);
     }
   }
