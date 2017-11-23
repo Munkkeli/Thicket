@@ -11,6 +11,7 @@ public class Visuals : MonoBehaviour {
   [Range(1, 24)]
   public float visibility = 5;
   public bool hasClouds = true;
+  public Color background;
   public Texture2D lut;
 
   public float visibilityUnits { get { return (grid.square) * visibility; } }

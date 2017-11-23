@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Swamp.unity
+    guid: 700d3b21395d53f44aa497b5d7fc9658
+  - enabled: 1
     path: Assets/Scenes/Forest.unity
     guid: 539119bcd9fdbd449b8f9ed34cd3fb57
   - enabled: 1

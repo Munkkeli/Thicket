@@ -6,11 +6,14 @@ using UnityEngine;
 namespace Pathfinding {
   [RequireComponent(typeof(Grid))]
   public class Router : MonoBehaviour {
+    public static Router current;
+
     [HideInInspector]
     public Grid grid;
 
     void Awake() {
       grid = GetComponent<Grid>();
+      current = this;
     }
 
     /// <summary>

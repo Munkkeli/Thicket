@@ -11,23 +11,27 @@ public class Controller : MonoBehaviour {
 
   public GameObject UI;
   public Router router;
-  public Viewport viewport;
 
   public GameObject playerPrefab;
   public Transform startFrom;
   public Transform walkTo;
+
+  public GameObject viewportPrefab;
+  [HideInInspector]
+  public Viewport viewport;
 
   private Canvas canvas;
   private CanvasScaler scaler;
   private int width = 0;
   private int height = 0;
 
-  void Start () {
+  void Awake() {
     GameObject ui = Instantiate(UI, Vector3.zero, Quaternion.identity, transform);
     canvas = ui.GetComponent<Canvas>();
     scaler = ui.GetComponent<CanvasScaler>();
 
-    canvas.worldCamera = viewport.viewport;
+    viewport = Instantiate(viewportPrefab, Vector3.zero, Quaternion.identity).GetComponent<Viewport>();
+    canvas.worldCamera = viewport.current.viewport;
     canvas.sortingLayerName = "UI";
 
     Player player = Instantiate(playerPrefab, startFrom.position, Quaternion.identity).GetComponent<Player>();
