@@ -236,6 +236,7 @@ MonoBehaviour:
     type: 2}
   startFrom: {fileID: 2091268679}
   walkTo: {fileID: 1495799347}
+  player: {fileID: 0}
   viewportPrefab: {fileID: 1714155296705584, guid: d892695b60941324fa750cfc3a9c4088,
     type: 2}
   viewport: {fileID: 0}

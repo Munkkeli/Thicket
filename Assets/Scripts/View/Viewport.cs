@@ -5,8 +5,6 @@ using UnityEngine;
 namespace View {
   [RequireComponent(typeof(Camera))]
   public class Viewport : MonoBehaviour {
-    public Viewport current;
-
     public bool usePixelPerfect = true;
 
     public Camera pixelRenderer;
@@ -31,7 +29,6 @@ namespace View {
       viewport = GetComponent<Camera>();
       CreateTexture();
       screen.GetComponent<Renderer>().material.mainTexture = texture;
-      current = this;
 
       Controller.OnScreenResize += Resize;
     }
@@ -42,7 +39,7 @@ namespace View {
     }
 
     void Update() {
-      Vector3 next = follow.position;
+      Vector3 next = (follow != null) ? follow.position : transform.position;
       next.z = -10;
       position = Vector3.SmoothDamp(position, next, ref velocity, speed, limit, Time.deltaTime);
 

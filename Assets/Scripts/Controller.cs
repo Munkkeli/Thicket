@@ -36,7 +36,7 @@ public class Controller : MonoBehaviour {
     scaler = ui.GetComponent<CanvasScaler>();
 
     viewport = Instantiate(viewportPrefab, Vector3.zero, Quaternion.identity).GetComponent<Viewport>();
-    canvas.worldCamera = viewport.current.viewport;
+    canvas.worldCamera = viewport.viewport;
     canvas.sortingLayerName = "UI";
 
     player = Instantiate(playerPrefab, startFrom.position, Quaternion.identity);
@@ -59,7 +59,8 @@ public class Controller : MonoBehaviour {
     }
 
     if (level != "" && timer <= 0) {
-      SceneManager.LoadScene(level);
+      OnScreenResize = null;
+      SceneManager.LoadScene(level, LoadSceneMode.Single);
     } else if (level != "") {
       timer -= Time.fixedDeltaTime;
     }
