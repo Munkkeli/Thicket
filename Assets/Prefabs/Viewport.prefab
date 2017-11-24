@@ -142,7 +142,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1714155296705584}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 16, z: -10}
+  m_LocalPosition: {x: -19.750711, y: -6.9800987, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4269985996025106}
@@ -541,11 +541,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80447be72aa30f4698491fd06d49a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  current: {fileID: 0}
   usePixelPerfect: 1
   pixelRenderer: {fileID: 20566607329029610}
   follow: {fileID: 0}
   screen: {fileID: 4883963108652776}
   clouds: {fileID: 1652177948910758}
+  curtain: {fileID: 114919223755245490}
   speed: 0.5
   limit: 10
   mouse: {x: 0, y: 0}

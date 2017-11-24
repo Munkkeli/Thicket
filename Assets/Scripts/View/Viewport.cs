@@ -13,6 +13,7 @@ namespace View {
     public Transform follow;
     public Transform screen;
     public GameObject clouds;
+    public Curtain curtain;
     public float speed = 1;
     public float limit = 2;
 

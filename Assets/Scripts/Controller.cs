@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 using Pathfinding;
@@ -15,6 +16,8 @@ public class Controller : MonoBehaviour {
   public GameObject playerPrefab;
   public Transform startFrom;
   public Transform walkTo;
+  [HideInInspector]
+  public GameObject player;
 
   public GameObject viewportPrefab;
   [HideInInspector]
@@ -24,6 +27,8 @@ public class Controller : MonoBehaviour {
   private CanvasScaler scaler;
   private int width = 0;
   private int height = 0;
+  private string level = "";
+  private float timer = 0;
 
   void Awake() {
     GameObject ui = Instantiate(UI, Vector3.zero, Quaternion.identity, transform);
@@ -34,11 +39,13 @@ public class Controller : MonoBehaviour {
     canvas.worldCamera = viewport.current.viewport;
     canvas.sortingLayerName = "UI";
 
-    Player player = Instantiate(playerPrefab, startFrom.position, Quaternion.identity).GetComponent<Player>();
-    player.Move(walkTo.position);
+    player = Instantiate(playerPrefab, startFrom.position, Quaternion.identity);
 
-    player.router = router;
-    player.viewport = viewport;
+    Player playerScript = player.GetComponent<Player> ();
+    playerScript.Move(walkTo.position);
+
+    playerScript.router = router;
+    playerScript.viewport = viewport;
 
     viewport.follow = player.transform;
   }
@@ -50,5 +57,18 @@ public class Controller : MonoBehaviour {
       height = Screen.height;
       if (OnScreenResize != null) OnScreenResize();
     }
+
+    if (level != "" && timer <= 0) {
+      SceneManager.LoadScene(level);
+    } else if (level != "") {
+      timer -= Time.fixedDeltaTime;
+    }
+  }
+
+  public void LoadScene(string scene) {
+    level = scene;
+    timer = 2;
+
+    viewport.curtain.visible = true;
   }
 }
