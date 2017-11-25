@@ -13,4 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Key
   sprite: {fileID: 21300000, guid: 62d781df8bf4649a2bfea1f6ae8af734, type: 3}
+  sound: {fileID: 8300000, guid: ef8a7ad58d6fe614bb833204b169cb7d, type: 3}
   collectable: 0

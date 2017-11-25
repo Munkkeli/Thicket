@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Usable : MonoBehaviour {
   public Pathfinding.Grid grid;
   public Item required;
   [TextArea]
   public string text;
+  public AudioClip sound;
   public GameObject[] onDisabled;
   public GameObject[] onEnabled;
   public Vector2[] collision;
@@ -16,10 +18,12 @@ public class Usable : MonoBehaviour {
   public bool state;
 
   private int layer;
+  private AudioSource audioSource;
 
   void Start() {
+    audioSource = GetComponent<AudioSource>();
     this.layer = gameObject.layer;
-    Toggle(this.state);
+    Toggle(this.state, true);
   }
 
   public void OnClick(Player player) {
@@ -31,7 +35,7 @@ public class Usable : MonoBehaviour {
     }
   }
 
-  private void Toggle(bool state) {
+  private void Toggle(bool state, bool silent = false) {
     this.state = state;
 
     gameObject.layer = !state ? this.layer : 0;
@@ -47,5 +51,7 @@ public class Usable : MonoBehaviour {
     foreach (Vector2 point in collision) {
       grid.Set(point, state);
     }
+
+    if (!silent) audioSource.PlayOneShot(sound, Random.Range(0.8f, 1.2f));
   }
 }

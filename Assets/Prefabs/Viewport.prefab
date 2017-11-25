@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 23479456038089148}
-  speed: 0.012
+  speed: 0.018
 --- !u!114 &114062295681508714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -541,7 +541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80447be72aa30f4698491fd06d49a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current: {fileID: 0}
   usePixelPerfect: 1
   pixelRenderer: {fileID: 20566607329029610}
   follow: {fileID: 0}

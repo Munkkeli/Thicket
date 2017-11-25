@@ -13,4 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Plank
   sprite: {fileID: 21300000, guid: bd978ef712eaa08419fe5d150151aab4, type: 3}
+  sound: {fileID: 8300000, guid: 402e80ec11dadc547a2eef7eee248eca, type: 3}
   collectable: 0

@@ -62,7 +62,7 @@ public class Controller : MonoBehaviour {
   void Update() {
     Vector2 point;
     RectTransformUtility.ScreenPointToLocalPointInRectangle(dialog.content, viewport.viewport.WorldToScreenPoint(viewport.mouse), viewport.viewport, out point);
-    if (Input.GetMouseButtonDown(0) && dialog.visible && dialog.content.rect.Contains(point)) ClickDialog();
+    if (Input.GetMouseButtonUp(0) && dialog.visible && dialog.content.rect.Contains(point)) ClickDialog();
   }
 
   void FixedUpdate() {

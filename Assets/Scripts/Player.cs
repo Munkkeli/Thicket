@@ -4,6 +4,7 @@ using UnityEngine;
 using Pathfinding;
 using View;
 
+[RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour {
   [HideInInspector]
   public Router router;
@@ -19,7 +20,13 @@ public class Player : MonoBehaviour {
   public float speed = 1;
   public float maxSpeed = 1;
   public float smoothing = 1;
+  public float animationSpeed = 1;
   public Collider2D main;
+
+  [Header("Sounds")]
+  public AudioClip[] footsteps;
+  public float footstepFrequency = 1;
+  public AudioClip click;
 
   [Header("Info & Pickup")]
   public float pickupDistance = 4;
@@ -42,12 +49,19 @@ public class Player : MonoBehaviour {
   private Dictionary<Collider2D, GameObject> inRange = new Dictionary<Collider2D, GameObject>();
 
   private Vector2 position;
-  private Vector2 velocityRef;
+  private Vector2 lastPosition;
 
   private Vector2 correction { get { return transform.position - main.bounds.center; } }
 
+  private AudioSource audioSource;
+  private float footstepTimer = 0;
+
+  private Animator animator;
+
   void Start() {
     body = GetComponent<Rigidbody2D>();
+    audioSource = GetComponent<AudioSource>();
+    animator = GetComponentInChildren<Animator>();
     position = transform.position;
 
     selectorRenderer = Instantiate(selector, Vector3.zero, Quaternion.identity).GetComponent<SpriteRenderer>();
@@ -77,6 +91,8 @@ public class Player : MonoBehaviour {
           Debug.Log("Pickup " + item.name);
           inventory.Add(item);
 
+          audioSource.PlayOneShot(item.sound, Random.Range(2.5f, 3f));
+
           toPickup.Add(coll.Key, coll.Value);
           pickup = true;
         }
@@ -105,28 +121,42 @@ public class Player : MonoBehaviour {
 
     if (!pickup && Input.GetMouseButtonDown(0)) {
       Navigate(viewport.mouse);
+      audioSource.PlayOneShot(click, Random.Range(2f, 2.5f));
     }
-
-    //transform.position = position; //Manager.Snap(position);
   }
 
   void FixedUpdate() {
-    Vector3 velocity = new Vector3();
-
-    if (Input.GetKey(KeyCode.W)) velocity.y += 1;
-    if (Input.GetKey(KeyCode.S)) velocity.y -= 1;
-    if (Input.GetKey(KeyCode.D)) velocity.x += 1;
-    if (Input.GetKey(KeyCode.A)) velocity.x -= 1;
-
-    velocity.Normalize();
-
-    // target += (Vector2)(velocity * speed * Time.fixedDeltaTime);
-
-    // Vector3 position = Vector2.SmoothDamp(body.position, target, ref velocityRef, smoothing, maxSpeed, Time.fixedDeltaTime);
-
+    Vector2 velocity = (Vector2)(lastPosition - body.position);
     body.MovePosition(position);
 
-    // transform.position = position;
+    float change = Mathf.Max(Mathf.Abs(velocity.x), Mathf.Abs(velocity.y));
+    if (footstepTimer <= 0) {
+      audioSource.PlayOneShot(footsteps[Random.Range(0, footsteps.Length)], Random.Range(0.25f, 0.5f));
+      footstepTimer = footstepFrequency;
+    } else if (change > 0) {
+      footstepTimer -= Time.fixedDeltaTime;
+    }
+
+    int direction = 0;
+
+    if (Mathf.Abs(velocity.y) > Mathf.Abs(velocity.x)) {
+      if (velocity.y > 0) {
+        direction = 1;
+      } else if (velocity.y < 0) {
+        direction = 2;
+      }
+    } else {
+      if (velocity.x > 0) {
+        direction = 3;
+      } else if (velocity.x < 0) {
+        direction = 4;
+      }
+    }
+
+    animator.SetInteger("Direction", direction);
+    animator.SetFloat("Speed", animationSpeed * (speed / 0.1f));
+
+    lastPosition = body.position;
   }
 
   void OnDrawGizmos() {

@@ -14,6 +14,8 @@ namespace UI {
     public GameObject panel;
     public RectTransform more;
     public RectTransform content;
+    public AudioClip characterSound;
+    public AudioClip openSound;
 
     private int index = 0;
     private int scroll = 0;
@@ -23,21 +25,34 @@ namespace UI {
     private Character[] currentText;
     private string currentTextString;
     private Text textComponent;
+    private RectTransform rectComponent;
     private TextGenerationSettings settings;
     private TextGenerator generator;
     private UILineInfo[] lines;
     private float width = 0;
     private bool waiting = false;
     private bool finished = false;
+    private bool active = true;
+    private AudioSource audioSource;
+    private float positionAnimation = 0;
+    private float positionAnimationVel = 0;
 
     void Awake() {
       textComponent = GetComponentInChildren<Text>();
+      audioSource = GetComponent<AudioSource>();
+      rectComponent = GetComponent<RectTransform>();
       generator = new TextGenerator();
       top = textComponent.rectTransform.offsetMax.y;
     }
 
     void Update () {
-      if (panel.activeInHierarchy != visible) panel.SetActive(visible);
+      if (panel.activeInHierarchy != active) panel.SetActive(active);
+
+      rectComponent.anchoredPosition = new Vector3(0, 8 - ((64 + 32) * (1 - positionAnimation)));
+      rectComponent.localRotation = Quaternion.Euler(0, 0, (1 - positionAnimation) * 8f);
+      positionAnimation = Mathf.SmoothDamp(positionAnimation, visible ? 1 : 0, ref positionAnimationVel, 0.25f);
+
+      active = positionAnimation > 0.01f;
 
       if (!visible) return;
 
@@ -55,8 +70,9 @@ namespace UI {
       int currentScroll = (int)(line / 3);
       waiting = currentScroll > scroll;
 
-      if (!waiting && delay <= 0 && index < text.Length) {
+      if (!waiting && positionAnimation > 0.8f && delay <= 0 && index < text.Length) {
         currentText[index].Reveal();
+        audioSource.PlayOneShot(characterSound, Random.Range(0.8f, 1.2f));
         switch (text[index]) {
           case ',':
             delay = stop * 0.75f;
@@ -113,11 +129,14 @@ namespace UI {
       line = 0;
       delay = 0;
       scroll = 0;
+
+      audioSource.PlayOneShot(openSound, Random.Range(1.8f, 2.2f));
     }
 
     public void Scroll() {
       if (finished) {
         visible = false;
+        audioSource.PlayOneShot(openSound, Random.Range(1.8f, 2.2f));
         return;
       }
 

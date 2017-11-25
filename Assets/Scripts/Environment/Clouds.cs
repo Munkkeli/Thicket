@@ -13,7 +13,7 @@ namespace Environment {
     }
 
     void Update() {
-      view.material.mainTextureOffset = transform.position * 0.012f;
+      view.material.mainTextureOffset = transform.position * speed;
     }
 
     /// <summary>

@@ -5,5 +5,6 @@ using System.Collections;
 public class Item : ScriptableObject {
   public new string name = "New Game Item";
   public Sprite sprite;
+  public AudioClip sound;
   public bool collectable = false;
 }
