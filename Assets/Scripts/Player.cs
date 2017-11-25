@@ -55,6 +55,8 @@ public class Player : MonoBehaviour {
   }
 
   void Update() {
+    if (Controller.current.paused) return;
+
     Collider2D[] colls = Physics2D.OverlapCircleAll(transform.position, infoDistance, (pickupLayer | infoLayer));
     foreach (Collider2D coll in colls) {
       if (!inRange.ContainsKey(coll) && Vector2.Distance(coll.bounds.center, transform.position) <= infoDistance) {
@@ -80,7 +82,6 @@ public class Player : MonoBehaviour {
         }
 
         if (infoLayer == (infoLayer | (1 << coll.Key.gameObject.layer)) && distance <= pickupDistance) {
-          Debug.Log(coll.Key.gameObject);
           coll.Key.GetComponent<Usable>().OnClick(this);
           toRemove.Add(coll.Key, coll.Value);
         }
@@ -102,7 +103,7 @@ public class Player : MonoBehaviour {
       Destroy(coll.Key.gameObject);
     }
 
-    if (!pickup && Input.GetMouseButtonUp(0)) {
+    if (!pickup && Input.GetMouseButtonDown(0)) {
       Navigate(viewport.mouse);
     }
 
@@ -163,7 +164,11 @@ public class Player : MonoBehaviour {
     Vector2[] path = router.Find(transform.position, point);
     if (path != null && path.Length > 10) path = null;
 
-    selectorRenderer.transform.position = router.grid.Get(point).position;
+    Tile click = router.grid.Get(point);
+    // Don't do anything if clicked outside the map
+    if (click == null) return;
+
+    selectorRenderer.transform.position = click.position;
     selectorRenderer.sprite = (path == null) ? failure : move;
 
     StopCoroutine("Flash");

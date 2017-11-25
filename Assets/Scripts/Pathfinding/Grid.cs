@@ -66,6 +66,9 @@ namespace Pathfinding {
 
       int x = Mathf.RoundToInt((width - 1) * Mathf.Clamp01(local.x / size.x));
       int y = Mathf.RoundToInt((height - 1) * ((size.y + local.y) / size.y));
+
+      if (x < 0 || x >= width || y < 0 || y >= height) return null;
+
       return grid[x, y];
     }
 

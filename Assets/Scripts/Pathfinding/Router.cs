@@ -28,6 +28,8 @@ namespace Pathfinding {
       Tile first = grid.Get(start);
       Tile last = grid.Get(stop);
 
+      if (first == null || last == null) return null;
+
       Heap<Tile> open = new Heap<Tile>(grid.max);
       HashSet<Tile> closed = new HashSet<Tile>();
       open.Add(first);
