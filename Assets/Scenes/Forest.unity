@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 1045808213}
   required: {fileID: 11400000, guid: 0819912ea30ce438ab37a13dd1759ee1, type: 2}
+  text: The gate is locked with a sturdy metal padlock.
   onDisabled:
   - {fileID: 291925206}
   onEnabled: []
@@ -383,6 +384,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 1045808213}
   required: {fileID: 11400000, guid: 1bb7cc8dcfee945659ce2b20103e53c4, type: 2}
+  text: This bridge seems to be broken, maybe there's something in the forest I can
+    use to fix it...
   onDisabled:
   - {fileID: 1062373796}
   onEnabled:
@@ -884,6 +887,8 @@ MonoBehaviour:
   viewportPrefab: {fileID: 1714155296705584, guid: d892695b60941324fa750cfc3a9c4088,
     type: 2}
   viewport: {fileID: 0}
+  dialog: {fileID: 0}
+  paused: 0
 --- !u!4 &1467622282
 Transform:
   m_ObjectHideFlags: 0
