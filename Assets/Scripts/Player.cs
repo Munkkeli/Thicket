@@ -97,7 +97,7 @@ public class Player : MonoBehaviour {
           pickup = true;
         }
 
-        if (infoLayer == (infoLayer | (1 << coll.Key.gameObject.layer)) && distance <= pickupDistance) {
+        if (infoLayer == (infoLayer | (1 << coll.Key.gameObject.layer)) && distance <= infoDistance) {
           coll.Key.GetComponent<Usable>().OnClick(this);
           toRemove.Add(coll.Key, coll.Value);
         }

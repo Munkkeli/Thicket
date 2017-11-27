@@ -72,7 +72,7 @@ namespace UI {
 
       if (!waiting && positionAnimation > 0.8f && delay <= 0 && index < text.Length) {
         currentText[index].Reveal();
-        audioSource.PlayOneShot(characterSound, Random.Range(0.8f, 1.2f));
+        audioSource.PlayOneShot(characterSound, Random.Range(0.4f, 0.8f));
         switch (text[index]) {
           case ',':
             delay = stop * 0.75f;
