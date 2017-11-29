@@ -21,6 +21,7 @@ public class Usable : MonoBehaviour {
   private AudioSource audioSource;
 
   void Start() {
+    grid = Controller.current.router.grid;
     audioSource = GetComponent<AudioSource>();
     this.layer = gameObject.layer;
     Toggle(this.state, true);

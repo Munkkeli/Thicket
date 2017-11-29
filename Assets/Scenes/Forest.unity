@@ -973,6 +973,7 @@ MonoBehaviour:
   hasClouds: 1
   background: {r: 0.07058824, g: 0.28627452, b: 0.21960786, a: 1}
   profile: {fileID: 11400000, guid: 43e384985856dde4fb513eabdb83a798, type: 2}
+  transitionSpeed: 0.5
 --- !u!1 &1062373796
 GameObject:
   m_ObjectHideFlags: 0

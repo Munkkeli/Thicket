@@ -85,7 +85,7 @@ public class Player : MonoBehaviour {
     foreach (KeyValuePair<Collider2D, GameObject> coll in inRange) {
       float distance = Vector2.Distance(coll.Key.bounds.center, transform.position);
 
-      if (!pickup && Input.GetMouseButtonDown(0) && coll.Key.bounds.Contains(viewport.mouse)) {
+      if (!pickup && Input.GetMouseButtonDown(0) && coll.Key.bounds.Contains(new Vector3(viewport.mouse.x, viewport.mouse.y, coll.Value.transform.position.z))) {
         if (pickupLayer == (pickupLayer | (1 << coll.Key.gameObject.layer)) && distance <= pickupDistance) {
           Item item = coll.Key.gameObject.GetComponent<Pickup>().item;
           Debug.Log("Pickup " + item.name);
