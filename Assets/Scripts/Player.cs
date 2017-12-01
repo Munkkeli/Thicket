@@ -29,6 +29,7 @@ public class Player : MonoBehaviour {
   public AudioClip click;
 
   [Header("Info & Pickup")]
+  public SpriteRenderer carryingRenderer;
   public float pickupDistance = 4;
   public LayerMask pickupLayer;
   public GameObject pickupIcon;
@@ -86,7 +87,7 @@ public class Player : MonoBehaviour {
       float distance = Vector2.Distance(coll.Key.bounds.center, transform.position);
 
       if (!pickup && Input.GetMouseButtonDown(0) && coll.Key.bounds.Contains(new Vector3(viewport.mouse.x, viewport.mouse.y, coll.Value.transform.position.z))) {
-        if (pickupLayer == (pickupLayer | (1 << coll.Key.gameObject.layer)) && distance <= pickupDistance) {
+        if (pickupLayer == (pickupLayer | (1 << coll.Key.gameObject.layer)) && distance <= pickupDistance && inventory.Count <= 0) {
           Item item = coll.Key.gameObject.GetComponent<Pickup>().item;
           Debug.Log("Pickup " + item.name);
           inventory.Add(item);
@@ -123,6 +124,12 @@ public class Player : MonoBehaviour {
       Navigate(viewport.mouse);
       audioSource.PlayOneShot(click, Random.Range(2f, 2.5f));
     }
+
+    if (inventory.Count > 0 && carryingRenderer.sprite != inventory[0].sprite) {
+      carryingRenderer.sprite = inventory[0].sprite;
+    } else if (inventory.Count <= 0 && carryingRenderer.sprite != null) {
+      carryingRenderer.sprite = null;
+    }
   }
 
   void FixedUpdate() {
@@ -155,6 +162,7 @@ public class Player : MonoBehaviour {
 
     animator.SetInteger("Direction", direction);
     animator.SetFloat("Speed", animationSpeed * (speed / 0.1f));
+    animator.SetBool("Carrying", inventory.Count > 0);
 
     lastPosition = body.position;
   }

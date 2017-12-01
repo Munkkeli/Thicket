@@ -12,5 +12,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Swamp.unity
     guid: 700d3b21395d53f44aa497b5d7fc9658
   - enabled: 1
-    path: Assets/Scenes/UI.unity
-    guid: 0eb914bcac47ce54ebefed5f9b5bf39a
+    path: Assets/Scenes/Thicket.unity
+    guid: ba519c332674b9844bcd609c50c6734d
