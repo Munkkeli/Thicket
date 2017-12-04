@@ -1,6 +1,16 @@
 Through the Thicket
 ===================
-###### Made by **T’n’T**, Tuomas, Neea and Tony.
+##### Made by **T’n’T** (Tuomas, Neea and Tony).
+
+#### Usefull links :link:
+For credits and links on resources we used to create this game, take a look at [CREDITS.md](/CREDITS.md)
+
+The source code for our website can be found [here.](https://github.com/Munkkeli/thicket.munkkeli.io)
+
+#### Working with the project
+Clone or download the project and open the root folder in **Unity**, easy as that!
+
+## Story
 
 ### Prologue
 You are playing as young Brian Jr. Brian is a 12-year-old fifth grader boy. The day is cloudy and Brian’s school day has just come to an end when he suddenly gets a text message from his mother. “Brian love, I’m making cinnamon rolls come home quick before they get cold!”. Brian loving his mother's cinnamon rolls decides to take a shortcut to get home as quick as possible. The road that he normally takes goes around a thick forest that Brian has never gone through before. The forest looks dark and spooky, but Brian’s love for cinnamon rolls takes over, and he decides to go through anyway.
@@ -23,5 +33,3 @@ The game has two endings, one where you make it home in time and the other where
 
 ### Extra objectives
 The game features collectible items in hidden areas that experienced players can try to collect. The collectibles also boost the replayability of the game, changing the experience from just making it to the end to collecting everything on the way.
-
-ps. For credits and links on resources we used to create this game, take a look at [CREDITS.md](/CREDITS.md)
