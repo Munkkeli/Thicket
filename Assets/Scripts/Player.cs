@@ -58,6 +58,7 @@ public class Player : MonoBehaviour {
   private float footstepTimer = 0;
 
   private Animator animator;
+  private bool fleeing = false;
 
   void Start() {
     body = GetComponent<Rigidbody2D>();
@@ -120,7 +121,7 @@ public class Player : MonoBehaviour {
       Destroy(coll.Key.gameObject);
     }
 
-    if (!pickup && Input.GetMouseButtonDown(0)) {
+    if (!pickup && !fleeing && Input.GetMouseButtonDown(0)) {
       Navigate(viewport.mouse);
       audioSource.PlayOneShot(click, Random.Range(2f, 2.5f));
     }
@@ -188,10 +189,23 @@ public class Player : MonoBehaviour {
   /// </summary>
   /// <param name="point">The position you want the player to move to.</param>
   public void Move(Vector2 point) {
+    progress = 0;
     path = new Vector2[] { transform.position, point };
 
     StopCoroutine("Follow");
     StartCoroutine("Follow");
+  }
+
+  /// <summary>
+  /// Flee to a point. When player is fleeing, no control from the user is applied.
+  /// </summary>
+  /// <param name="point">The position you want the player to flee to.</param>
+  public void Flee(Vector2 point) {
+    if (fleeing) return;
+    fleeing = true;
+    Move(point);
+
+    Debug.Log("Flee to " + point);
   }
 
   /// <summary>
@@ -232,7 +246,10 @@ public class Player : MonoBehaviour {
         if (Vector2.Distance(transform.position, current + correction) < 0.5f) {
           progress++;
 
-          if (progress >= path.Length) yield break;
+          if (progress >= path.Length) {
+            fleeing = false;
+            yield break;
+          }
 
           current = path[progress];
         }
