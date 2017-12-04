@@ -22,12 +22,12 @@ public class Controller : MonoBehaviour {
   public GameObject player;
 
   public GameObject viewportPrefab;
-  [HideInInspector]
   public Viewport viewport;
   [HideInInspector]
   public Dialog dialog;
 
   public bool paused = false;
+  public bool demo = false;
 
   private Canvas canvas;
   private CanvasScaler scaler;
@@ -42,19 +42,21 @@ public class Controller : MonoBehaviour {
     scaler = ui.GetComponent<CanvasScaler>();
     dialog = ui.GetComponentInChildren<Dialog>();
 
-    viewport = Instantiate(viewportPrefab, Vector3.zero, Quaternion.identity).GetComponent<Viewport>();
-    canvas.worldCamera = viewport.viewport;
-    canvas.sortingLayerName = "UI";
+    if (!demo) {
+      viewport = Instantiate(viewportPrefab, Vector3.zero, Quaternion.identity).GetComponent<Viewport>();
+      canvas.worldCamera = viewport.viewport;
+      canvas.sortingLayerName = "UI";
 
-    player = Instantiate(playerPrefab, startFrom.position, Quaternion.identity);
+      player = Instantiate(playerPrefab, startFrom.position, Quaternion.identity);
 
-    Player playerScript = player.GetComponent<Player> ();
-    playerScript.Move(walkTo.position);
+      Player playerScript = player.GetComponent<Player> ();
+      playerScript.Move(walkTo.position);
 
-    playerScript.router = router;
-    playerScript.viewport = viewport;
+      playerScript.router = router;
+      playerScript.viewport = viewport;
 
-    viewport.follow = player.transform;
+      viewport.follow = player.transform;
+    }
 
     current = this;
   }

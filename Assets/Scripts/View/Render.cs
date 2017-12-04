@@ -9,8 +9,8 @@ namespace View {
 
     // public static float dpi { get { return ((Screen.dpi <= 0 ? 258 : Screen.dpi) / 258); } }
     public static float ratio { get { return (float)Screen.width / (float)Screen.height; } }
-    public static int width { get { return ((int)((64 + 32) * ratio) * scale); } }
-    public static int height { get { return ((int)(64 + 32) * scale); } }
+    public static int width { get { return ((int)(((64 + 32) * ratio) / 2) * 2 * scale); } }
+    public static int height { get { return ((int)((64 + 32) * scale) / 2) * 2; } }
 
     public static float size { get { return ((float)height / 2f) / ppu; } }
 

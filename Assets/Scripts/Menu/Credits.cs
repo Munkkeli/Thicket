@@ -4,14 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Credits : MonoBehaviour {
+namespace Menu {
+	public class Credits : MonoBehaviour {
 
-	public Button buttonBack;
+		public Button buttonBack;
 
 
-	void Start(){
-		buttonBack = GameObject.Find("Back").GetComponent<Button>();
-		buttonBack.onClick.AddListener(() => SceneManager.LoadScene ("Menu"));
+		void Start(){
+			buttonBack = GameObject.Find("Back").GetComponent<Button>();
+			buttonBack.onClick.AddListener(() => SceneManager.LoadScene ("Menu"));
 
+		}
 	}
 }
