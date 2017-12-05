@@ -43,7 +43,7 @@ public class Controller : MonoBehaviour {
     dialog = ui.GetComponentInChildren<Dialog>();
 
     if (!demo) {
-      viewport = Instantiate(viewportPrefab, Vector3.zero, Quaternion.identity).GetComponent<Viewport>();
+      viewport = Instantiate(viewportPrefab, startFrom != null ? startFrom.position : Vector3.zero, Quaternion.identity).GetComponent<Viewport>();
       canvas.worldCamera = viewport.viewport;
       canvas.sortingLayerName = "UI";
 

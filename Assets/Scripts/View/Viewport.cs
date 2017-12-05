@@ -21,40 +21,28 @@ namespace View {
     [HideInInspector]
     public Camera viewport;
 
-    [HideInInspector]
-    public Vector2 smoothPosition;
-    [HideInInspector]
-    public bool jump = false;
-
     private RenderTexture texture;
-    private Vector3 position;
+    public Vector3 position;
     private Vector3 velocity;
 
     void Awake() {
       viewport = GetComponent<Camera>();
       CreateTexture();
       screen.GetComponent<Renderer>().material.mainTexture = texture;
-      smoothPosition = transform.position;
-      position = smoothPosition;
 
       Controller.OnScreenResize += Resize;
     }
 
     void Start() {
+      position = (follow != null) ? follow.position : transform.position;
       clouds.SetActive(Visuals.current.hasClouds);
       viewport.backgroundColor = Visuals.current.background;
     }
 
     void Update() {
-      Vector3 next = (follow != null) ? follow.position : (Vector3)smoothPosition;
+      Vector3 next = (follow != null) ? follow.position : transform.position;
       next.z = -10;
       position = Vector3.SmoothDamp(position, next, ref velocity, speed, limit, Time.deltaTime);
-
-      if (jump) {
-        jump = false;
-        position = smoothPosition;
-        velocity = Vector2.zero;
-      }
 
       transform.position = usePixelPerfect ? Render.Snap(position) : position;
 
