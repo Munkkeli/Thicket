@@ -50,6 +50,15 @@ namespace View {
     }
 
     /// <summary>
+    /// Jumps the viewport to a position without smooth movement.
+    /// </summary>
+    /// <param name="point">The position you want to jump to.</param>
+    public void Jump(Vector2 point) {
+      position = (Vector3)point + new Vector3(0, 0, -10);
+      velocity = Vector2.zero;
+    }
+
+    /// <summary>
     /// Resizes the pixel perfect renderer and the players viewport to fit the screen.
     /// Gets called automagically when screen resolution changes.
     /// </summary>

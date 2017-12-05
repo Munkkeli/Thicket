@@ -44,14 +44,14 @@ namespace UI {
 
       foreach(KeyValuePair<string, string[]> section in credits) {
         GameObject header = new GameObject(section.Key, new System.Type[] { typeof(Text) });
-        header.transform.parent = transform;
+        header.transform.SetParent(transform);
         SetText(header, section.Key, headerSize, headerFont);
 
         foreach(string name in section.Value) {
           CreateSpacer(16);
 
           GameObject text = new GameObject(name, new System.Type[] { typeof(Text), typeof(ContentSizeFitter) });
-          text.transform.parent = transform;
+          text.transform.SetParent(transform);
           text.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
           SetText(text, name, nameSize, nameFont);
         }
@@ -66,7 +66,7 @@ namespace UI {
 
     public void CreateSpacer(int size) {
       GameObject spacer = new GameObject("Space", new System.Type[] { typeof(RectTransform), typeof(LayoutElement) });
-      spacer.transform.parent = transform;
+      spacer.transform.SetParent(transform);
       spacer.GetComponent<RectTransform>().sizeDelta = new Vector2(0, size);
       spacer.GetComponent<LayoutElement>().minHeight = size;
     }
