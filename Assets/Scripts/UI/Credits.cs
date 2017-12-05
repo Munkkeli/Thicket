@@ -19,6 +19,7 @@ namespace UI {
       { "Audio", new string[] {
         "Forest ambiance by dobroide",
         "Frogs by oyez",
+        "Master of the Feast by Kevin MacLeod",
         "RPG Audio by Kenney",
         "Soft wind & crickets by Leandros.Ntounis",
         "UI Audio by Kenney",
@@ -31,27 +32,36 @@ namespace UI {
       } }
     };
 
+    public RectTransform canvas;
+    public Title title;
+    public Demo demo;
     public Font headerFont;
     public Font nameFont;
     public int headerSize = 32;
     public int nameSize = 24;
     public float speed = 1f;
+    public bool scroll = true;
 
     private RectTransform rect;
 
     void Start() {
       rect = GetComponent<RectTransform>();
+      title.visible = false;
 
       foreach(KeyValuePair<string, string[]> section in credits) {
         GameObject header = new GameObject(section.Key, new System.Type[] { typeof(Text) });
-        header.transform.SetParent(transform);
+        header.transform.SetParent(transform, false);
+        header.transform.localScale = new Vector3(1, 1, 1);
+        header.layer = gameObject.layer;
         SetText(header, section.Key, headerSize, headerFont);
 
         foreach(string name in section.Value) {
-          CreateSpacer(16);
+          CreateSpacer(6);
 
           GameObject text = new GameObject(name, new System.Type[] { typeof(Text), typeof(ContentSizeFitter) });
-          text.transform.SetParent(transform);
+          text.transform.SetParent(transform, false);
+          text.transform.localScale = new Vector3(1, 1, 1);
+          text.layer = gameObject.layer;
           text.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
           SetText(text, name, nameSize, nameFont);
         }
@@ -61,7 +71,17 @@ namespace UI {
     }
 
     void Update() {
-      rect.localPosition = new Vector2(0, rect.localPosition.y + (speed * Time.deltaTime));
+      bool done = rect.localPosition.y > (rect.sizeDelta.y + canvas.sizeDelta.y / 2);
+
+      if (scroll && !done) rect.localPosition = new Vector2(0, rect.localPosition.y + (speed * Time.deltaTime));
+
+      if (!demo.done && rect.localPosition.y > (rect.sizeDelta.y + canvas.sizeDelta.y / 2) - 100) {
+        demo.done = true;
+      }
+
+      if (!title.visible && done) {
+        title.visible = true;
+      }
     }
 
     public void CreateSpacer(int size) {

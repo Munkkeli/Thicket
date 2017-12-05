@@ -12,11 +12,16 @@ public class Demo : MonoBehaviour {
   public Vector2 position;
   public Transform follow;
   public float duration = 10;
+  public bool done = false;
 
   private float timer = 0;
 
   void Update () {
-    if (timer <= 0) {
+    if (done) {
+      curtain.visible = true;
+    }
+
+    if (timer <= 0 && !done) {
       timer = duration;
 
       Vector2 current;

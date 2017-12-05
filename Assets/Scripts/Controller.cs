@@ -30,7 +30,6 @@ public class Controller : MonoBehaviour {
   public bool demo = false;
 
   private Canvas canvas;
-  private CanvasScaler scaler;
   private int width = 0;
   private int height = 0;
   private string level = "";
@@ -39,7 +38,6 @@ public class Controller : MonoBehaviour {
   void Awake() {
     GameObject ui = Instantiate(UI, Vector3.zero, Quaternion.identity, transform);
     canvas = ui.GetComponent<Canvas>();
-    scaler = ui.GetComponent<CanvasScaler>();
     dialog = ui.GetComponentInChildren<Dialog>();
 
     if (!demo) {

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/EndCredits.unity
+    guid: 18495ded02e6eaf46a6fe470f9f6bbd6
+  - enabled: 1
     path: Assets/Scenes/Forest.unity
     guid: 539119bcd9fdbd449b8f9ed34cd3fb57
   - enabled: 1

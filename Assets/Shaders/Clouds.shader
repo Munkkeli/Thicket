@@ -37,7 +37,7 @@
       v2f vert(appdata v) {
         v2f o;
         o.vertex = UnityObjectToClipPos(v.vertex);
-        o.uv = mul(unity_ObjectToWorld, TRANSFORM_TEX(v.uv, _MainTex) * 0.015625);
+        o.uv = mul(unity_ObjectToWorld, (TRANSFORM_TEX(v.uv, _MainTex) * 0.015625));
         return o;
       }
       

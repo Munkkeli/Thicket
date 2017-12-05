@@ -33,7 +33,7 @@
       fragmentInput vert (appdata_base v) {
         fragmentInput o;
         o.pos = UnityObjectToClipPos (v.vertex);
-        o.scale = mul (unity_ObjectToWorld, float2(1, 1));
+        o.scale = mul(unity_ObjectToWorld, float2(1, 1));
         o.uv = v.texcoord.xy - fixed2(0.5,0.5);
         return o;
       }

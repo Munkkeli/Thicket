@@ -20,7 +20,6 @@ namespace UI {
     private int index = 0;
     private int scroll = 0;
     private float delay = 0;
-    private float top = 0;
     private int line = 0;
     private Character[] currentText;
     private string currentTextString;
@@ -42,7 +41,6 @@ namespace UI {
       audioSource = GetComponent<AudioSource>();
       rectComponent = GetComponent<RectTransform>();
       generator = new TextGenerator();
-      top = textComponent.rectTransform.offsetMax.y;
     }
 
     void Update () {
