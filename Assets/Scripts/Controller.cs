@@ -81,9 +81,9 @@ public class Controller : MonoBehaviour {
     }
   }
 
-  public void LoadScene(string scene) {
+  public void LoadScene(string scene, float delay = 2) {
     level = scene;
-    timer = 2;
+    timer = delay;
 
     viewport.curtain.visible = true;
   }

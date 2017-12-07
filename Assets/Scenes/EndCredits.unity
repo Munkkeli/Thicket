@@ -167,7 +167,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 58113365}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -356, z: 0}
+  m_LocalPosition: {x: 0, y: -697, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 899851127}
@@ -197,6 +197,7 @@ MonoBehaviour:
   headerSize: 20
   nameSize: 12
   speed: 20
+  logoTime: 8
   scroll: 1
 --- !u!222 &58113368
 CanvasRenderer:
@@ -782,7 +783,7 @@ RectTransform:
   m_GameObject: {fileID: 899851123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 44, y: 180, z: 90}
-  m_LocalScale: {x: 0.033707865, y: 0.033707865, z: 0.033707865}
+  m_LocalScale: {x: 0.017216643, y: 0.017216643, z: 0.017216643}
   m_Children:
   - {fileID: 1691069582}
   - {fileID: 58113366}

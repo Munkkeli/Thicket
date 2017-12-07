@@ -230,6 +230,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 60834605444253168, guid: 4856b780cb151be4ba6af75d22c462a7,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4856b780cb151be4ba6af75d22c462a7, type: 2}
   m_IsPrefabParent: 0
@@ -272,6 +277,7 @@ MonoBehaviour:
   viewport: {fileID: 0}
   dialog: {fileID: 0}
   paused: 0
+  demo: 0
 --- !u!4 &633816719
 Transform:
   m_ObjectHideFlags: 0

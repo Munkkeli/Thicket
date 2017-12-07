@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 8
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
@@ -182,7 +182,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 467355441}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -190,7 +190,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 749091689
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &146124334
@@ -200,7 +200,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 146124330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 653, y: 356, z: 0}
+  m_LocalPosition: {x: 948, y: 697, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 358873210}
@@ -340,6 +340,11 @@ MonoBehaviour:
   buttonPlay: {fileID: 0}
   buttonCredits: {fileID: 0}
   buttonQuit: {fileID: 0}
+--- !u!20 &467355441 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 20805235232222578, guid: d892695b60941324fa750cfc3a9c4088,
+    type: 2}
+  m_PrefabInternal: {fileID: 2072406084}
 --- !u!1 &488032309
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,6 +878,7 @@ MonoBehaviour:
   position: {x: 0, y: 0}
   follow: {fileID: 1631972850}
   duration: 16
+  done: 0
 --- !u!114 &1338603351
 MonoBehaviour:
   m_ObjectHideFlags: 0

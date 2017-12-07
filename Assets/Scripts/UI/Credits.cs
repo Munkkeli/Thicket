@@ -40,6 +40,7 @@ namespace UI {
     public int headerSize = 32;
     public int nameSize = 24;
     public float speed = 1f;
+    public float logoTime = 5;
     public bool scroll = true;
 
     private RectTransform rect;
@@ -73,10 +74,16 @@ namespace UI {
     void Update() {
       bool done = rect.localPosition.y > (rect.sizeDelta.y + canvas.sizeDelta.y / 2);
 
-      if (scroll && !done) rect.localPosition = new Vector2(0, rect.localPosition.y + (speed * Time.deltaTime));
+      if (scroll && !done) rect.localPosition = new Vector2(0, rect.localPosition.y + (speed * (Input.GetMouseButton(0) ? 10 : 1) * Time.deltaTime));
 
       if (!demo.done && rect.localPosition.y > (rect.sizeDelta.y + canvas.sizeDelta.y / 2) - 100) {
         demo.done = true;
+      }
+
+      if (done) logoTime -= Time.deltaTime;
+
+      if (done && logoTime <= 0) {
+        Controller.current.LoadScene("Menu", 0);
       }
 
       if (!title.visible && done) {

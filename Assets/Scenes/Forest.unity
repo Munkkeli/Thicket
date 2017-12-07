@@ -1195,6 +1195,7 @@ MonoBehaviour:
   viewport: {fileID: 0}
   dialog: {fileID: 0}
   paused: 0
+  demo: 0
 --- !u!4 &1467622282
 Transform:
   m_ObjectHideFlags: 0
@@ -1396,6 +1397,11 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 60355291373096502, guid: 369a5b52e1a2b5c48805f2e16266d2e8,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 60132558951409868, guid: 369a5b52e1a2b5c48805f2e16266d2e8,
         type: 2}
       propertyPath: m_IsTrigger
       value: 1
