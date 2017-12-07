@@ -20,8 +20,8 @@ namespace Menu {
       buttonQuit.onClick.AddListener(() => Application.Quit());	
 
       buttonQuit.gameObject.SetActive(false);
-      #if UNITY_STANDALONE_WIN
-      buttonQuit.gameObject.SetActive(true);
+      #if UNITY_STANDALONE_WIN || UNITY_EDITOR
+        buttonQuit.gameObject.SetActive(true);
       #endif
     }
   }
