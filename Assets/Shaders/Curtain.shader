@@ -19,25 +19,31 @@
 
       #pragma vertex vert
       #pragma fragment frag
+
       #include "UnityCG.cginc"
 
       fixed4 _Color;
       float _Size;
 
-      struct fragmentInput {
-        float4 pos : SV_POSITION;
-        float2 uv : TEXTCOORD0;
+      struct appdata {
+        float4 vertex : POSITION;
+        float2 uv : TEXCOORD0;
       };
 
-      fragmentInput vert (appdata_base v) {
-        fragmentInput o;
-        o.pos = UnityObjectToClipPos(v.vertex);
-        o.uv = v.texcoord.xy - fixed2(0.5,0.5);
+      struct v2f {
+        float4 vertex : SV_POSITION;
+        float2 uv : TEXCOORD0;
+      };
+
+      v2f vert (appdata v) {
+        v2f o;
+        o.vertex = UnityObjectToClipPos(v.vertex);
+        o.uv = v.uv.xy - fixed2(0.5, 0.5);
         return o;
       }
 
-      fixed4 frag(fragmentInput i) : SV_Target {
-        float distance = sqrt(pow(i.uv.x, 2) + pow(i.uv.y,2));
+      fixed4 frag(v2f i) : SV_Target {
+        float distance = sqrt(pow(i.uv.x, 2) + pow(i.uv.y, 2));
         return (distance > _Size) ? _Color : fixed4(1, 1, 1, 0);
       }
 

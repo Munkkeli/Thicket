@@ -551,6 +551,7 @@ MonoBehaviour:
   limit: 10
   mouse: {x: 0, y: 0}
   viewport: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
 --- !u!114 &114919223755245490
 MonoBehaviour:
   m_ObjectHideFlags: 1
